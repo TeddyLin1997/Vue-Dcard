@@ -1,12 +1,14 @@
 <template lang="pug">
+.header__fixed
   .header__bar
+    h1 Dcard
     searchInput.search
     functionBar
 </template>
 
 <script>
-import searchInput from "@/components/search-input";
-import functionBar from "@/components/function-bar";
+import searchInput from "./search-input";
+import functionBar from "./function-bar";
 
 export default {
   name: "header-bar",
@@ -19,10 +21,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header__bar {
-  width: 100%;
+.header__fixed {
   position: fixed;
-  height: 50px;
+  width: 100%;
   background-color: $skyBlue;
+}
+.header__bar {
+  @include flex(row, space-between);
+  margin: 0 18%;
+  height: 50px;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    line-height: 50px;
+  }
+
+  .search {
+    max-width: 500px;
+    width: 100%;
+  }
 }
 </style>

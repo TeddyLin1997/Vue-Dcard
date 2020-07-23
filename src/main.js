@@ -10,7 +10,7 @@ Vue.config.productionTip = false;
 
 library.add(fas);
 
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("icon", FontAwesomeIcon);
 
 new Vue({
   router,

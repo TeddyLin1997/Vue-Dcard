@@ -2,13 +2,22 @@ $darkBlue: #2c3e50;
 $seaBlue: #00588A;
 $skyBlue: #006aa6;
 
+@mixin flex($direction:row , $mainAlign:center, $viceAlign:center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $mainAlign;
+  align-items: $viceAlign;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  font-size: 16px;
 }
 
 html {
+  width: 100%;
   background-color: $darkBlue;
 }
