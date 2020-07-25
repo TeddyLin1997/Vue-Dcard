@@ -4,7 +4,7 @@
     h1.kanban__title(v-if="kanbanData.title") {{ kanbanData.title }}
     //- 看板項目
     .kanban__group(v-if="kanbanData.data.length")
-      .kanban__item(v-for="kanban of kanbanData.data" :key="kanban.name")
+      router-link.kanban__item(v-for="kanban of kanbanData.data" :key="kanban.name" :to="kanban.routerName")
         .circle
           awesome-icon.icon(:icon="kanban.icon")
         .content

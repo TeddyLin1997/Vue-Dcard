@@ -1,10 +1,10 @@
 <template lang="pug">
-  .home
-    h1 主頁面
+  .mit
+    h1 麻省理工學院
 </template>
 
 <script>
 export default {
-  name: "home"
+  name: "mit"
 };
 </script>

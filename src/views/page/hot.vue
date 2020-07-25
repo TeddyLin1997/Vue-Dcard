@@ -1,10 +1,10 @@
 <template lang="pug">
-  .home
-    h1 主頁面
+  .hot
+    h1 即時熱門看板
 </template>
 
 <script>
 export default {
-  name: "home"
+  name: "hot"
 };
 </script>

@@ -1,7 +1,7 @@
 <template lang="pug">
 .header-bar
   .header
-    h1 Dcard
+    h1(@click="goHomePage()") Dcard
     searchInput.search
     functionBar
 </template>
@@ -16,6 +16,12 @@ export default {
   components: {
     searchInput,
     functionBar
+  },
+
+  methods: {
+    goHomePage() {
+      this.$router.push({ name: "home" });
+    }
   }
 };
 </script>
@@ -42,6 +48,11 @@ export default {
     font-weight: bold;
     text-align: left;
     color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      transform: translateY(-3px);
+    }
   }
 
   .search {
