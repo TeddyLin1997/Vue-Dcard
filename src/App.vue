@@ -1,10 +1,9 @@
 <template lang="pug">
   #app
     headerBar
-    #nav
-      router-link(to="/") Home
-      router-link(to="/about") About
-    router-view
+    aside 123123
+    main.layout__main
+      router-view
 </template>
 
 <script>
@@ -20,7 +19,6 @@ export default {
 
 <style lang="scss">
 #app {
-  width: 500px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

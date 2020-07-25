@@ -13,6 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 .search__input {
+  margin: 0 50px;
   width: 300px;
   display: flex;
   height: 50px;
@@ -21,6 +22,7 @@ export default {
 
 input {
   padding: 10px;
+  min-width: 200px;
   width: 100%;
   height: 30px;
   border: none;
@@ -28,6 +30,7 @@ input {
   background-color: $seaBlue;
   line-height: 50px;
   color: white;
+  font-size: 0.9rem;
 
   &:focus {
     outline: none;
@@ -35,7 +38,7 @@ input {
 }
 
 input::placeholder {
-  color: white;
+  color: #dddddd;
 }
 
 .search__icon {

@@ -1,6 +1,6 @@
 <template lang="pug">
   .function__bar
-    icon.icon(v-for="item of functionList" :key="item.name" :icon="item.icon" @click="item.clickEvent")
+    icon.icon(v-for="item of functionList" :key="item.name" :icon="item.icon" @click="getEvent")
 </template>
 
 <script>
@@ -10,23 +10,20 @@ export default {
   data() {
     return {
       functionList: [
-        { name: "發文", icon: ["fas", "pen"], clickEvent: this.getEvent() },
-        { name: "通知", icon: ["fas", "bell"], clickEvent: this.getEvent() },
-        { name: "抽卡", icon: ["fas", "dice-d6"], clickEvent: this.getEvent() },
+        { name: "發文", icon: ["fas", "pen"] },
+        { name: "通知", icon: ["fas", "bell"] },
+        { name: "抽卡", icon: ["fas", "dice-d6"] },
         {
           name: "個人信箱",
-          icon: ["fas", "envelope"],
-          clickEvent: this.getEvent()
+          icon: ["fas", "envelope"]
         },
         {
           name: "個人資料",
-          icon: ["fas", "user"],
-          clickEvent: this.getEvent()
+          icon: ["fas", "user"]
         },
         {
           name: "下拉選單",
-          icon: ["fas", "caret-down"],
-          clickEvent: this.getEvent()
+          icon: ["fas", "caret-down"]
         }
       ]
     };
@@ -41,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .function__bar {
   @include flex(row, space-between, center);
-  width: 280px;
+  min-width: 280px;
 }
 
 .icon {

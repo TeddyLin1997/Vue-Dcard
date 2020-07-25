@@ -22,13 +22,16 @@ export default {
 
 <style lang="scss" scoped>
 .header__fixed {
+  padding: 0 50px;
   position: fixed;
+  top: 0px;
   width: 100%;
   background-color: $skyBlue;
 }
 .header__bar {
   @include flex(row, space-between);
-  margin: 0 18%;
+  margin: auto;
+  max-width: 1280px;
   height: 50px;
 
   h1 {
