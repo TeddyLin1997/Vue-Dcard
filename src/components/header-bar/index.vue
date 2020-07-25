@@ -27,9 +27,11 @@ export default {
   top: 0px;
   width: 100%;
   background-color: $skyBlue;
+  z-index: 1;
 }
 .header {
   @include flex(row, space-between);
+  margin: 0 auto;
   max-width: 1280px;
   height: 50px;
 

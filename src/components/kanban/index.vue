@@ -41,8 +41,8 @@ export default {
 }
 
 .kanban__item {
-  @include flex(row, flex-start, flex-start);
-
+  @include flex(row, space-between);
+  padding: 10px;
   height: 50px;
   line-height: 30px;
   transition: all 0.2s;
