@@ -1,0 +1,35 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  overflow-x: hidden;
+}
+.body {
+  padding: 80px 30px;
+  width: 100%;
+
+}
+.layout__main {
+  @include flex(row, space-between, flex-start);
+  max-width: 1280px;
+  margin: 0;
+}
+
+.aside {
+  min-width: 200px;
+}
+
+.router__view {
+  margin-right: 10px;
+  min-width: 500px;
+  width: 700px;
+  height: 500px;
+  background-color: white;
+}
+
+.advertising {
+  min-width: 280px;
+  height: 100px;
+  background-color: teal;
+}

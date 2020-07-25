@@ -1,6 +1,6 @@
 <template lang="pug">
-  .function__bar
-    icon.icon(v-for="item of functionList" :key="item.name" :icon="item.icon" @click="getEvent")
+  .function-bar
+    awesome-icon.icon(v-for="item of functionList" :key="item.name" :icon="item.icon" @click="getEvent")
 </template>
 
 <script>
@@ -36,14 +36,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.function__bar {
+.function-bar {
   @include flex(row, space-between, center);
   min-width: 280px;
 }
 
 .icon {
-  font-size: 1.25rem;
   color: white;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 </style>

@@ -1,8 +1,8 @@
 <template lang="pug">
-  .search__input
+  .search-input
     input(type="text" placeholder="搜尋")
     .search__icon
-      icon(:icon=["fas", "search"])
+      awesome-icon(:icon=["fas", "search"])
 </template>
 
 <script>
@@ -12,9 +12,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search__input {
-  margin: 0 50px;
-  width: 300px;
+.search-input {
+  margin-right: 50px;
+  width: 500px;
   display: flex;
   height: 50px;
   align-items: center;
@@ -47,6 +47,7 @@ input::placeholder {
   height: 30px;
   font-size: 1rem;
   line-height: 30px;
+  text-align: center;
   color: white;
   border: 1px solid $seaBlue;
   border-radius: 0 2px 2px 0;

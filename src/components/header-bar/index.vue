@@ -1,6 +1,6 @@
 <template lang="pug">
-.header__fixed
-  .header__bar
+.header-bar
+  .header
     h1 Dcard
     searchInput.search
     functionBar
@@ -21,24 +21,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header__fixed {
-  padding: 0 50px;
+.header-bar {
+  padding: 0 30px;
   position: fixed;
   top: 0px;
   width: 100%;
   background-color: $skyBlue;
 }
-.header__bar {
+.header {
   @include flex(row, space-between);
-  margin: auto;
   max-width: 1280px;
   height: 50px;
 
   h1 {
+    min-width: 200px;
+    line-height: 50px;
     font-size: 2rem;
     font-weight: bold;
+    text-align: left;
     color: white;
-    line-height: 50px;
   }
 
   .search {
