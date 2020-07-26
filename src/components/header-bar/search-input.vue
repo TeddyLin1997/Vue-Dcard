@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 .search-input {
-  margin-right: 50px;
+  margin: 0 50px 0 20px;
   width: 500px;
   display: flex;
   height: 50px;
@@ -22,7 +22,7 @@ export default {
 
 input {
   padding: 10px;
-  min-width: 200px;
+  min-width: 380px;
   width: 100%;
   height: 30px;
   border: none;
