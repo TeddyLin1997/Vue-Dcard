@@ -33,7 +33,7 @@ export default {
   top: 0px;
   width: 100%;
   background-color: $skyBlue;
-  z-index: 1;
+  z-index: 10;
 }
 .header {
   @include flex(row, space-between);
@@ -42,10 +42,9 @@ export default {
   height: 50px;
 
   h1 {
+    padding-left: 10px;
     min-width: 200px;
-    line-height: 50px;
     font-size: 2rem;
-    font-weight: bold;
     text-align: left;
     color: white;
     cursor: pointer;

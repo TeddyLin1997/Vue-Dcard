@@ -5,8 +5,7 @@
     //- 看板項目
     .kanban__group(v-if="kanbanData.data.length")
       router-link.kanban__item(v-for="kanban of kanbanData.data" :key="kanban.name" :to="kanban.routerName")
-        .circle
-          awesome-icon.icon(:icon="kanban.icon")
+        circle-icon(:icon="kanban.icon" border)
         .content
           span {{ kanban.name }}
     
@@ -14,8 +13,14 @@
 </template>
 
 <script>
+import circleIcon from "@/components/circle-icon";
+
 export default {
   name: "kanban",
+
+  components: {
+    circleIcon
+  },
 
   props: {
     kanbanData: {
@@ -31,8 +36,8 @@ export default {
 <style lang="scss" scoped>
 .kanban {
   margin-bottom: 1rem;
-  text-align: left;
   width: 200px;
+  text-align: left;
 }
 
 .kanban__title {
@@ -43,24 +48,12 @@ export default {
 .kanban__item {
   @include flex(row, space-between);
   padding: 10px;
-  height: 50px;
-  line-height: 30px;
-  transition: all 0.2s;
   border-radius: 5px;
+  transition: all 0.2s;
 
   &:hover {
     background-color: #04283f;
     cursor: pointer;
-  }
-
-  .circle {
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    text-align: center;
-    background-color: white;
-    color: black;
   }
 
   .content {

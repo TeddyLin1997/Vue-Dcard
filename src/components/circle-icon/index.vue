@@ -29,6 +29,7 @@ export default {
   border-radius: 100%;
   background-color: white;
   color: black;
+  text-align: center;
 }
 
 .border__line {
