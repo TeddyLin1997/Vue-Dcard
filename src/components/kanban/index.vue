@@ -5,7 +5,7 @@
     //- 看板項目
     .kanban__group(v-if="kanbanData.data.length")
       router-link.kanban__item(v-for="kanban of kanbanData.data" :key="kanban.name" :to="kanban.routerName")
-        circle-icon(:icon="kanban.icon" border)
+        circle-icon(:icon="kanban.icon")
         .content
           span {{ kanban.name }}
     

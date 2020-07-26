@@ -3,7 +3,12 @@
     kanban-container
       template(#header)
         header.header
-          circle-icon(:icon="['fas', 'list']")
+          .kanban__title
+            .kanban__name
+              circle-icon(:icon="['fas', 'list']" :size="40" border)
+              span 首頁
+            .follow
+              button(type="button") 追蹤
           kanban-tabs(:data="tabList")
       template(#article)
         article.article article是我12312312
@@ -58,5 +63,14 @@ export default {
 
 .footer {
   background-color: olive;
+}
+
+.kanban__title {
+  @include flex();
+}
+
+.follow {
+  width: 100px;
+  height: 50px;
 }
 </style>
