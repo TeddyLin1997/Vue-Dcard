@@ -1,8 +1,9 @@
 <template lang="pug">
   .kanban-tabs
-    .tabs__wrapper
-      .tab(v-for="tab, index of data" :key="index" :class="{ 'active__tab': active === index }" ) {{ tab }}
-      .gradient
+    .tabs__wrapper(ref="tabsWrapper" @scroll="getScroll")
+      .tab(v-for="tab, index of data" :key="index" :class="{ 'active__tab': active === index }" @click="activeTab(index)" ) {{ tab }}
+    //- 淡出效果
+    .gradient(v-show="isScrollInRight")
 </template>
 
 <script>
@@ -18,8 +19,21 @@ export default {
 
   data() {
     return {
-      active: 0
+      active: 0,
+      isScrollInRight: true
     };
+  },
+
+  methods: {
+    getScroll(event) {
+      let tabs = event.target;
+      this.isScrollInRight =
+        tabs.clientWidth + tabs.scrollLeft !== tabs.scrollWidth;
+    },
+
+    activeTab(index) {
+      this.active = index;
+    }
   }
 };
 </script>
@@ -34,13 +48,14 @@ export default {
 
   .tabs__wrapper {
     width: 70%;
-    overflow: scroll;
+    overflow: auto;
   }
   .tab {
     display: inline-block;
-    width: 60px;
+    width: 80px;
     padding-bottom: 10px;
     color: #999999;
+    cursor: pointer;
   }
 }
 

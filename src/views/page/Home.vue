@@ -3,6 +3,7 @@
     kanban-container
       template(#header)
         header.header
+          circle-icon(:icon="['fas', 'list']")
           kanban-tabs(:data="tabList")
       template(#article)
         article.article article是我12312312
@@ -13,13 +14,15 @@
 <script>
 import kanbanContainer from "@/components/kanban-container";
 import kanbanTabs from "@/components/kanban-tabs";
+import circleIcon from "@/components/circle-icon";
 
 export default {
   name: "home",
 
   components: {
     kanbanContainer,
-    kanbanTabs
+    kanbanTabs,
+    circleIcon
   },
 
   data() {
@@ -29,12 +32,12 @@ export default {
         "追蹤",
         "熱門",
         "即時",
-        "😍最多",
-        "😡排行",
-        "😢排行",
-        "🤣排行",
-        "😲排行",
-        "🙇排行"
+        "😍 愛心",
+        "😡 森77",
+        "😢 嗚嗚",
+        "🤣 哈哈",
+        "😲 驚訝",
+        "🙇 跪"
       ]
     };
   }
