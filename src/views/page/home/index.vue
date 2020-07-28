@@ -45,27 +45,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  height: 100%;
-}
-.header {
-  margin-top: 40px;
-}
-.article {
-  margin: 20px 40px;
-  background-color: lightseagreen;
-}
-
-.footer {
-  background-color: olive;
-}
-
-.kanban__title {
-  @include flex();
-}
-
-.follow {
-  width: 100px;
-  height: 50px;
-}
+@import "./style.scss";
 </style>
