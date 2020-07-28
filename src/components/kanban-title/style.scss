@@ -1,0 +1,25 @@
+.kanban__header__title {
+  @include flex(row, space-between, center);
+  margin: 20px 60px;
+}
+
+.kanban__name {
+  @include flex(row, space-between);
+  span {
+    margin-left: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+}
+
+.kanban__follow button {
+  color: white;
+  width: 64px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background-color: #3397cf;
+  &:hover {
+    opacity: .8;
+  }
+}

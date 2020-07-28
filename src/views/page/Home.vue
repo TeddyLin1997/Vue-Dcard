@@ -3,12 +3,7 @@
     kanban-container
       template(#header)
         header.header
-          .kanban__title
-            .kanban__name
-              circle-icon(:icon="['fas', 'list']" :size="40" border)
-              span 首頁
-            .follow
-              button(type="button") 追蹤
+          kanban-title(:label="'首頁'" :icon="['fas', 'home']")
           kanban-tabs(:data="tabList")
       template(#article)
         article.article article是我12312312
@@ -18,8 +13,8 @@
 
 <script>
 import kanbanContainer from "@/components/kanban-container";
+import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
-import circleIcon from "@/components/circle-icon";
 
 export default {
   name: "home",
@@ -27,7 +22,7 @@ export default {
   components: {
     kanbanContainer,
     kanbanTabs,
-    circleIcon
+    kanbanTitle
   },
 
   data() {
