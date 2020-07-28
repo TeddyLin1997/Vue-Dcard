@@ -6,15 +6,17 @@
           kanban-title(:label="'首頁'" :icon="['fas', 'home']")
           kanban-tabs(:data="tabList")
       template(#article)
-        article.article article是我12312312
+        article
+          article-item(:data="data")
       template(#footer)
-        footer.footer 腳在這逼辣
+        footer
 </template>
 
 <script>
 import kanbanContainer from "@/components/kanban-container";
 import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
+import articleItem from "@/components/article-item";
 
 export default {
   name: "home",
@@ -22,7 +24,8 @@ export default {
   components: {
     kanbanContainer,
     kanbanTabs,
-    kanbanTitle
+    kanbanTitle,
+    articleItem
   },
 
   data() {
@@ -38,6 +41,108 @@ export default {
         "🤣 哈哈",
         "😲 驚訝",
         "🙇 跪"
+      ],
+      data: [
+        {
+          id: 0,
+          user: "彭于晏",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 1,
+          user: "金城武",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 2,
+          user: "CHRIS",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 3,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 4,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 5,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 6,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 7,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 8,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        },
+        {
+          id: 9,
+          user: "chris",
+          postTime: "2020/07/28 18:45",
+          title: "Side Project趕快寫完啊",
+          content:
+            "國際熱錢湧進台股，其中在金融股方面，包括元大金、玉山金、中信金等金控業獲利表現亮眼",
+          mood: 12235,
+          react: 476
+        }
       ]
     };
   }
