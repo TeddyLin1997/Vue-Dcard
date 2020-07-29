@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "/Vue-Dcard/",
   css: {
     loaderOptions: {
       scss: {
