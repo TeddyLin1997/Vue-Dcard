@@ -37,7 +37,7 @@ export default {
   },
 
   async created() {
-    this.data = await this.getFirebaseData("data");
+    this.data = await this.getFirebaseData("data/home");
   },
 
   methods: {

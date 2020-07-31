@@ -3,8 +3,8 @@ section
   .article-item(v-for="article of data" :key="article.id")
     .wrapper
       header
-        span {{ article.user }} 、
-        span {{ article.postTime }}
+        span {{ article.name }} 、
+        span {{ article.time }}
       article
         h3 {{ article.title }}
         p {{ article.content }}
@@ -15,7 +15,7 @@ section
           awesome-icon(:icon="['fas', 'bookmark']")
           span &nbsp 收藏
     .picture
-      img(src="./logo.png")
+      img(:src="`https://picsum.photos/200/200?random=${article.id}`")
 </template>
 
 <script>
