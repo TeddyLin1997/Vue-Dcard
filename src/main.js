@@ -7,11 +7,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
-Vue.prototype.$firebase = db;
+library.add(fas);
 
 Vue.config.productionTip = false;
 
-library.add(fas);
+Vue.prototype.$firebase = db;
 
 Vue.component("awesome-icon", FontAwesomeIcon);
 
