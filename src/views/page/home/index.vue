@@ -17,6 +17,7 @@ import kanbanContainer from "@/components/kanban-container";
 import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
 import articleItem from "@/components/article-item";
+import { TAB_LIST } from "@/config/site";
 
 export default {
   name: "home",
@@ -30,18 +31,7 @@ export default {
 
   data() {
     return {
-      tabList: [
-        "全部",
-        "追蹤",
-        "熱門",
-        "即時",
-        "😍 愛心",
-        "😡 森77",
-        "😢 嗚嗚",
-        "🤣 哈哈",
-        "😲 驚訝",
-        "🙇 跪"
-      ],
+      tabList: TAB_LIST,
       data: []
     };
   },
