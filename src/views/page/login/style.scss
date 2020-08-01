@@ -1,0 +1,48 @@
+.login {
+  @include flex();
+  background-color: $darkBlue;
+}
+
+.login__window {
+  @include flex(column, space-between);
+  margin-top: 80px;
+  padding: 2rem;
+  width: 500px;
+  height: 300px;
+  color: white;
+  background-color: $skyBlue;
+  border-radius: 10px;
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+
+  input {
+    font-size: .9rem;
+    padding: .2rem;
+    width: 250px;
+    height: 2.4rem;
+    border-radius: .2rem;
+    border: none;
+    margin: 1rem;
+    outline: none;
+  }
+
+  button {
+    width: 120px;
+    padding: .6rem;
+    background-color: $seaBlue;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+    transition: all .2s;
+    &:active {
+      transform: scale(.95);
+      background-color: $darkBlue;
+    }
+  }
+}

@@ -10,4 +10,15 @@ const router = new VueRouter({
   routes
 });
 
+const checkUser = async (to, from, next) => {
+  await router.app.$root;
+  if (to.name === "login") return next();
+  if (router.app.$root.$store.state.userInfo) return next();
+  else next({ name: "login" });
+};
+
+router.beforeEach((to, from, next) => {
+  checkUser(to, from, next);
+});
+
 export default router;
