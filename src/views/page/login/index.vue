@@ -21,6 +21,10 @@ export default {
 
   components: {
     messageBox
+  },
+
+  created() {
+    this.$message("test123 測試測試");
   }
 };
 </script>

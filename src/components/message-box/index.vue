@@ -9,25 +9,20 @@
 export default {
   name: "message-box",
 
-  props: {
-    content: {
-      type: String,
-      required: true
-    }
-  },
-
   data() {
     return {
-      isDisplay: true
+      isDisplay: false,
+      content: ""
     };
   },
 
-  methods: {
-    display() {
-      this.isDisplay = true;
-      setTimeout(() => {
-        this.isDisplay = false;
-      }, 1500);
+  watch: {
+    isDisplay(newVal) {
+      if (newVal) {
+        setTimeout(() => {
+          this.isDisplay = false;
+        }, 1500);
+      }
     }
   }
 };
