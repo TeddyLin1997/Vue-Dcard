@@ -1,24 +1,51 @@
 .login {
-  @include flex(row, center, flex-start);
+  @include flex(column, flex-start);
   margin: 0;
-  padding: 0;
+  padding-top: 80px;
   background-color: $darkBlue;
   width: 100vw;
   height: 100vh;
 }
 
-.login__window {
-  @include flex(column, space-between);
-  margin-top: 80px;
-  padding: 2rem;
+.title {
+  @include flex();
+  width: 100%;
+  h1 {
+    color: white;
+    font-size: 1.5rem;
+  }
+}
+
+.tabs {
+  @include flex();
   width: 500px;
-  height: 300px;
+  margin-top: 40px;
+  .tab {
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    background-color: $seaBlue;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    transition: all .2s;
+  }
+}
+
+.active {
+  background-color: $skyBlue !important;
+}
+
+.window {
+  @include flex(column, space-between);
+  padding: 1rem;
+  width: 500px;
+  height: 250px;
   color: white;
   background-color: $skyBlue;
-  border-radius: 10px;
-  h1 {
-    font-size: 1.5rem !important;
-  }
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 
   span {
     font-size: 1rem;
@@ -27,8 +54,8 @@
   input {
     font-size: .9rem;
     padding: .2rem;
-    width: 250px;
-    height: 2.4rem;
+    width: 220px;
+    height: 2rem;
     border-radius: .2rem;
     border: none;
     margin: 1rem;
@@ -40,7 +67,7 @@
     padding: .6rem;
     background-color: $seaBlue;
     border: none;
-    border-radius: 4px;
+    border-radius: 100px;
     color: white;
     outline: none;
     transition: all .2s;
