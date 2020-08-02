@@ -8,12 +8,16 @@
       .password
         span 密碼
         input(type="password")
-      button 登入
+      button(@click="login()") 登入
 </template>
 
 <script>
 export default {
-  name: "login"
+  name: "login",
+
+  methods: {
+    login() {}
+  }
 };
 </script>
 
