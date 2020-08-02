@@ -9,8 +9,6 @@
         span 密碼
         input(type="password")
       button 登入
-
-    message-box(content="請先登入帳號")
 </template>
 
 <script>
@@ -21,10 +19,6 @@ export default {
 
   components: {
     messageBox
-  },
-
-  created() {
-    this.$message("test123 測試測試");
   }
 };
 </script>

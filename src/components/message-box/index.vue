@@ -2,7 +2,8 @@
   .message-box
     transition(name="message")
       .message(v-show="isDisplay")
-        span {{ content }}
+        awesome-icon(:icon="['fas', 'exclamation-circle']")
+        span &nbsp {{ content }}
 </template>
 
 <script>
