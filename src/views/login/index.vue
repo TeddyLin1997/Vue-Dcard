@@ -12,14 +12,8 @@
 </template>
 
 <script>
-import messageBox from "@/components/message-box";
-
 export default {
-  name: "login",
-
-  components: {
-    messageBox
-  }
+  name: "login"
 };
 </script>
 

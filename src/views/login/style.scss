@@ -1,6 +1,10 @@
 .login {
-  @include flex();
+  @include flex(row, center, flex-start);
+  margin: 0;
+  padding: 0;
   background-color: $darkBlue;
+  width: 100vw;
+  height: 100vh;
 }
 
 .login__window {
