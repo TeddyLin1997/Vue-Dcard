@@ -4,12 +4,8 @@
   left: calc(50% - 150px);
   padding: 0.6rem;
   width: 300px;
-  color: #f56c6c;
   text-align: left;
-  border: 1px solid #e29393;
   border-radius: 4px;
-  background-color: #fde2e2;
-
   span {
   font-size: 14px;
   }
@@ -28,4 +24,16 @@
 .message-enter-active,
 .message-leave-active {
   transition: all .5s;
+}
+
+.error {
+  color: #f56c6c;
+  border: 1px solid #e29393;
+  background-color: #fde2e2;
+}
+
+.success {
+  color: #67C23A;
+  border: 1px solid #e1f3d8;
+  background-color: #f0f9eb;
 }

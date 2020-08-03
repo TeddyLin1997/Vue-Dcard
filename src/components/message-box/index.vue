@@ -1,7 +1,7 @@
 <template lang="pug">
   .message-box
     transition(name="message")
-      .message(v-show="isDisplay")
+      .message(:class="type" v-show="isDisplay")
         awesome-icon(:icon="['fas', 'exclamation-circle']")
         span &nbsp {{ content }}
 </template>
@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       isDisplay: false,
-      content: ""
+      content: "",
+      type: "success"
     };
   },
 
@@ -23,7 +24,7 @@ export default {
         setTimeout(() => {
           this.isDisplay = false;
           this.destroyMessage();
-        }, 1500);
+        }, 2000);
       }
     }
   },

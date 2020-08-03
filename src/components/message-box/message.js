@@ -3,8 +3,11 @@ import Vue from "vue";
 // vue建構器 參數為包含組件的物件
 const messageConstructor = Vue.extend(require("./index.vue").default);
 
-const message = options => {
-  options = { content: options };
+const message = (content, type = "success") => {
+  let options = {
+    content: content,
+    type: type
+  };
 
   // 建立message實例
   const messageInstance = new messageConstructor({ data: options });

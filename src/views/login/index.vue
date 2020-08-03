@@ -69,11 +69,10 @@ export default {
             this.userForm.login.account,
             this.userForm.login.password
           )
-          .then(res => {
+          .then(() => {
             this.$message("成功");
-            console.log(res);
           })
-          .catch(err => this.$message(err.message));
+          .catch(err => this.$message(err.message, "error"));
       }
       if (code === "register") {
         this.$auth
@@ -82,7 +81,7 @@ export default {
             this.userForm.register.password
           )
           .then(() => this.$message("成功"))
-          .catch(err => this.$message(err.message));
+          .catch(err => this.$message(err.message, "error"));
       }
     },
 
