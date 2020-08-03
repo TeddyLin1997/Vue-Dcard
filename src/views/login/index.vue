@@ -62,6 +62,7 @@ export default {
   },
 
   methods: {
+    // 表單送出按鈕
     submit(code) {
       if (code === "login") {
         this.$auth
@@ -71,6 +72,7 @@ export default {
           )
           .then(() => this.$message("成功"))
           .then(() => this.setUserInfo())
+          .then(() => this.$router.push({ path: "/" }))
           .catch(err => this.$message(err.message, "error"));
       }
       if (code === "register") {
@@ -84,23 +86,25 @@ export default {
       }
     },
 
+    // 切換頁
     changePage(value) {
       this.active = value;
     },
 
+    // 簡化template
     isActive(code, type = "bool") {
       if (type === "bool") return this.active === code;
       if (type === "object") return { active: this.active === code };
     },
 
+    // 設定使用者資料
     setUserInfo() {
       const user = this.$auth.currentUser;
+
       if (user) {
-        const userInfo = JSON.stringify({
-          email: user.email,
-          uid: user.uid
-        });
-        window.localStorage.setItem("userInfo", userInfo);
+        const userInfo = { email: user.email, uid: user.uid };
+        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        this.$store.commit("SET_USER_INFO");
       }
     }
   }

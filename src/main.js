@@ -24,7 +24,6 @@ new Vue({
   render: h => h(App),
 
   created() {
-    // Vuex建立使用者
-    store.commit("SET_USER_INFO");
+    this.$store.commit("SET_USER_INFO");
   }
 }).$mount("#app");
