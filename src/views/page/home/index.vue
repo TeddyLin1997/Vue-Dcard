@@ -43,7 +43,7 @@ export default {
   methods: {
     getFirebaseData(path) {
       return new Promise((resolve, reject) => {
-        this.$firebase
+        this.$database
           .ref(path)
           .once("value")
           .then(snapshot => resolve(snapshot.val()))

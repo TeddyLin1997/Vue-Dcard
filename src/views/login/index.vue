@@ -69,9 +69,8 @@ export default {
             this.userForm.login.account,
             this.userForm.login.password
           )
-          .then(() => {
-            this.$message("成功");
-          })
+          .then(() => this.$message("成功"))
+          .then(() => this.setUserInfo())
           .catch(err => this.$message(err.message, "error"));
       }
       if (code === "register") {
@@ -92,6 +91,17 @@ export default {
     isActive(code, type = "bool") {
       if (type === "bool") return this.active === code;
       if (type === "object") return { active: this.active === code };
+    },
+
+    setUserInfo() {
+      const user = this.$auth.currentUser;
+      if (user) {
+        const userInfo = JSON.stringify({
+          email: user.email,
+          uid: user.uid
+        });
+        window.localStorage.setItem("userInfo", userInfo);
+      }
     }
   }
 };

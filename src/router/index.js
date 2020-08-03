@@ -15,7 +15,7 @@ const checkUser = async (to, from, next) => {
   if (to.name === "login") return next();
   if (router.app.$root.$store.state.userInfo) return next();
   else {
-    router.app.$root.$message("請登入帳號，即可使用相關功能");
+    router.app.$root.$message("請登入帳號，即可使用相關功能", "error");
     next({ name: "login" });
   }
 };
