@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import popover from "@/components/popover";
 
 const functionList = [
@@ -37,12 +38,14 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setUserInfo"]),
+
     getEvent(action) {
       if (action === "dropdown") this.openDropDown = !this.openDropDown;
     },
 
     logOut() {
-      localStorage.clear();
+      this.setUserInfo(null);
       this.$router.push({ name: "login" });
       this.$message("成功登出");
     }

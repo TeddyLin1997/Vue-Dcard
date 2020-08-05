@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "login",
 
@@ -62,8 +64,11 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setUserInfo"]),
+
     // 表單送出按鈕
     submit(code) {
+      // 登入
       if (code === "login") {
         this.$auth
           .signInWithEmailAndPassword(
@@ -71,10 +76,11 @@ export default {
             this.userForm.login.password
           )
           .then(() => this.$message("成功"))
-          .then(() => this.setUserInfo())
+          .then(() => this.saveUserInfo())
           .then(() => this.$router.push({ path: "/" }))
           .catch(err => this.$message(err.message, "error"));
       }
+      // 註冊
       if (code === "register") {
         this.$auth
           .createUserWithEmailAndPassword(
@@ -98,13 +104,12 @@ export default {
     },
 
     // 設定使用者資料
-    setUserInfo() {
+    saveUserInfo() {
       const user = this.$auth.currentUser;
 
       if (user) {
         const userInfo = { email: user.email, uid: user.uid };
-        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        this.$store.commit("SET_USER_INFO");
+        this.setUserInfo(userInfo);
       }
     }
   }

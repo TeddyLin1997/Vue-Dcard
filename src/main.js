@@ -1,6 +1,7 @@
 import Vue from "vue";
 import router from "./router";
 import store from "./store";
+import { mapActions } from "vuex";
 import App from "./views/App.vue";
 import message from "@/components/message-box/message.js";
 import { database, auth } from "./config/firebase";
@@ -24,6 +25,11 @@ new Vue({
   render: h => h(App),
 
   created() {
-    this.$store.commit("SET_USER_INFO");
+    const userinfo = JSON.parse(window.localStorage.getItem("userInfo"));
+    if (userinfo) this.setUserInfo(userinfo);
+  },
+
+  methods: {
+    ...mapActions(["setUserInfo"])
   }
 }).$mount("#app");
