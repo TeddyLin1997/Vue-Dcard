@@ -1,6 +1,5 @@
 ## Vue-Dcard
 use vue practice for Dcard
-not use any UI library
 
 - vue2
 - vuex
