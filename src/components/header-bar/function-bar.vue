@@ -1,13 +1,17 @@
 <template lang="pug">
   .function-bar
-    awesome-icon.icon(v-for="item of functionList" :key="item.name" :icon="item.icon" @click="getEvent(item.id)")
-    
-    transition(name="dropdown")
-      drop-down(v-show="openDropDown")
+    div(v-for="item of functionList" :key="item.name" @click="getEvent(item.id)")
+      awesome-icon.icon(:icon="item.icon")
+      template(v-if="item.id === 'dropdown'")
+        transition(name="dropdown")
+          popover(v-show="openDropDown")
+            div(@click="logOut()")
+              span 登出
+        
 </template>
 
 <script>
-import dropDown from "./drop-down";
+import popover from "@/components/popover";
 
 const functionList = [
   { id: "post", name: "發文", icon: ["fas", "pen"] },
@@ -22,7 +26,7 @@ export default {
   name: "function-bar",
 
   components: {
-    dropDown
+    popover
   },
 
   data() {
@@ -35,6 +39,12 @@ export default {
   methods: {
     getEvent(action) {
       if (action === "dropdown") this.openDropDown = !this.openDropDown;
+    },
+
+    logOut() {
+      localStorage.clear();
+      this.$router.push({ name: "login" });
+      this.$message("成功登出");
     }
   }
 };
