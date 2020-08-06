@@ -42,7 +42,7 @@ export default {
 .circle-icon {
   @include flex();
   border-radius: 100%;
-  background-color: white;
+  background-color: #fff;
   color: black;
   text-align: center;
   vertical-align: middle;

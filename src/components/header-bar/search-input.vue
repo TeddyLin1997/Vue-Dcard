@@ -29,7 +29,7 @@ input {
   border-radius: 4px 0 0 4px;
   background-color: $seaBlue;
   line-height: 50px;
-  color: white;
+  color: #fff;
   font-size: 0.9rem;
 
   &:focus {
@@ -45,7 +45,7 @@ input::placeholder {
   padding-top: 1px;
   width: 40px;
   height: 30px;
-  color: white;
+  color: #fff;
   border: 1px solid $seaBlue;
   border-radius: 0 2px 2px 0;
   background-color: $skyBlue;

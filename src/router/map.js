@@ -5,6 +5,11 @@ export const routes = [
     component: () => import("@/views/login")
   },
   {
+    path: "/new-post",
+    name: "new-post",
+    component: () => import("@/views/new-post")
+  },
+  {
     path: "/",
     // 如果使用 to={name:page }，不會出現 => 預設子路由
     // name: "page",

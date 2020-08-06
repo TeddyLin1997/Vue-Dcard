@@ -3,7 +3,8 @@
     .tabs__wrapper(ref="tabsWrapper" @scroll="getScroll")
       .tab(v-for="tab, index of data" :key="index" :class="{ 'active__tab': active === index }" @click="activeTab(index)" ) {{ tab }}
     //- 淡出效果
-    .gradient(v-show="isScrollInRight")
+    div(v-if="fadeOut")
+      .gradient(v-show="isScrollInRight")
 </template>
 
 <script>
@@ -14,6 +15,11 @@ export default {
     data: {
       type: Array,
       required: true
+    },
+
+    fadeOut: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -33,6 +39,7 @@ export default {
 
     activeTab(index) {
       this.active = index;
+      this.$emit("handleTab", index);
     }
   }
 };
@@ -45,6 +52,7 @@ export default {
   max-width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   white-space: nowrap;
+  text-align: center;
 
   .tabs__wrapper {
     width: 70%;

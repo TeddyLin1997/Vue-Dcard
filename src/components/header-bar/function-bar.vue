@@ -42,6 +42,8 @@ export default {
 
     getEvent(action) {
       if (action === "dropdown") this.openDropDown = !this.openDropDown;
+
+      if (action === "post") this.$router.push({ name: "new-post" });
     },
 
     logOut() {
@@ -60,7 +62,7 @@ export default {
 }
 
 .icon {
-  color: white;
+  color: #fff;
   font-size: 1.25rem;
   cursor: pointer;
 }

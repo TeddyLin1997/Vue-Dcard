@@ -47,7 +47,7 @@ export default {
     min-width: 200px;
     font-size: 2rem;
     text-align: left;
-    color: white;
+    color: #fff;
     cursor: pointer;
     transition: all 0.2s;
     &:hover {

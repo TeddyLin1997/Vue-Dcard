@@ -4,7 +4,7 @@
       template(#header)
         header.header
           kanban-title(:label="'首頁'" :icon="['fas', 'home']")
-          kanban-tabs(:data="tabList")
+          kanban-tabs(:data="tabList" :fadeOut="true")
       template(#article)
         article
           article-item(:data="data")

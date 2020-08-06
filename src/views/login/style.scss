@@ -11,7 +11,7 @@
   @include flex();
   width: 100%;
   h1 {
-    color: white;
+    color: #fff;
     font-size: 1.5rem;
   }
 }
@@ -25,7 +25,7 @@
     height: 40px;
     line-height: 40px;
     text-align: center;
-    color: white;
+    color: #fff;
     background-color: $seaBlue;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
@@ -42,7 +42,7 @@
   padding: 1rem;
   width: 500px;
   height: 250px;
-  color: white;
+  color: #fff;
   background-color: $skyBlue;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -68,7 +68,7 @@
     background-color: $seaBlue;
     border: none;
     border-radius: 100px;
-    color: white;
+    color: #fff;
     outline: none;
     transition: all .2s;
     &:active {
