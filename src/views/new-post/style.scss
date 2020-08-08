@@ -55,11 +55,6 @@
   }
 }
 
-// .article {
-//   @include flex(column);
-//   width: 100%;
-// }
-
 .kanban {
   @include flex(row, space-between);
   @include wrap-item;

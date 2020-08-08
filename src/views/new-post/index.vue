@@ -19,7 +19,7 @@
         button 取消
         button 下一步
     
-    dialog 123123123123
+    dialog-page(height="500px")
 </template>
 
 <script>
