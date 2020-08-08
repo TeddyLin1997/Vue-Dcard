@@ -1,0 +1,27 @@
+.popover {
+  position: relative;
+}
+
+.drop-down {
+  position: absolute;
+  top: 1rem;
+  right: -1rem;
+  width: 140px;
+  padding: 0.6rem 1rem;
+  background-color: #fff;
+  border-radius: 0.4rem;
+
+  div {
+    cursor: pointer;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -0.6rem;
+    right: 0.8rem;
+    border-bottom: 10px solid white;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
+}

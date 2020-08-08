@@ -1,0 +1,110 @@
+@mixin selectButton {
+  button {
+    padding: 0.4rem 0.6rem;
+    outline: none;
+    border: none;
+    border-radius: .4rem;
+    cursor: pointer;
+    transition: .2s;
+    &:hover {
+      color: #fff;
+      background-color: #00588ADD;
+    }
+  }
+}
+
+@mixin wrap-item {
+  margin-top: 0.8rem;
+  width: 100%;
+}
+
+@mixin input-effect {
+  padding: .4rem;
+  border: none;
+  outline: none;
+  background-color: #00588A33;
+  border-radius: .6rem;
+  transition: all .2s;
+  &:hover,
+  &:focus {
+    border: 1px solid $seaBlue;
+    box-shadow: 0 0 0 2px #006AA688;
+    background-color: #fff;
+  }
+}
+
+// ------分隔線------
+.new-post {
+  padding-top: 50px;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.wrapper {
+  margin: auto;
+  width: 760px;
+  h1 {
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #999;
+  }
+
+  .tabs {
+    width: 100%;
+  }
+}
+
+// .article {
+//   @include flex(column);
+//   width: 100%;
+// }
+
+.kanban {
+  @include flex(row, space-between);
+  @include wrap-item;
+  @include selectButton;
+  & > div:last-child {
+    font-weight: bold;
+    opacity: 0.25;
+    cursor: pointer;
+    &:hover {
+      opacity: .8;
+      color: $skyBlue;
+    }
+  }
+}
+
+.user {
+  @include wrap-item;
+  @include selectButton;
+}
+
+.title {
+  @include wrap-item;
+  input {
+    @include input-effect;
+    width: 300px;
+    height: 40px;
+ }
+}
+
+.content {
+  @include wrap-item;
+  textarea {
+    @include input-effect;
+    width: 100%;
+    height: 500px;
+  }
+}
+
+.button {
+  @include wrap-item;
+  @include flex(row, flex-end);
+  @include selectButton;
+  *:nth-child(2) {
+    color: #fff;
+    margin-left: 1rem;
+    background-color: #00588ACC;
+  }
+}
