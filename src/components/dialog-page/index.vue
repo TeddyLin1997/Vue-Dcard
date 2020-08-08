@@ -1,7 +1,8 @@
 <template lang="pug">
-  .mask
-    .dialog(ref="dialog")
-      h1 dialog
+  .mask(v-show="visible" @click="changeVisible()")
+    .dialog(ref="dialog" @click.stop)
+      .close
+        awesome-icon.icon(:icon="['fas', 'times']" @click="changeVisible()")
       slot
 </template>
 
@@ -28,6 +29,11 @@ export default {
     height: {
       type: String,
       default: ""
+    },
+
+    visible: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -36,6 +42,7 @@ export default {
   },
 
   methods: {
+    // 初始化設置屬性
     initAttr() {
       const customStyle = {
         width: this.width,
@@ -47,6 +54,11 @@ export default {
       Object.keys(customStyle).forEach(key => {
         this.$refs.dialog.style[key] = customStyle[key];
       });
+    },
+
+    // 與外部控制開關參數同步
+    changeVisible() {
+      this.$emit("update:visible", false);
     }
   }
 };
