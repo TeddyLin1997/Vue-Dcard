@@ -2,7 +2,6 @@
   .new-post
     .wrapper
       h1 發表文章
-      //- .article
       .kanban
         div
           button(v-model="postForm.kanban") {{ postForm.kanban }}
