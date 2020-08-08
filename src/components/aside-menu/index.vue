@@ -1,8 +1,8 @@
 <template lang="pug">
   .aside-menu
-    kanban(:kanbanData="kanban.defalut")
-    kanban(:kanbanData="kanban.follows")
-    kanban(:kanbanData="kanban.featured")
+    kanban(:kanbanData="kanbanList.defalut")
+    kanban(:kanbanData="kanbanList.follows")
+    kanban(:kanbanData="kanbanList.featured")
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       // 預設看板
-      kanban: KANBAN_LIST
+      kanbanList: KANBAN_LIST
     };
   }
 };

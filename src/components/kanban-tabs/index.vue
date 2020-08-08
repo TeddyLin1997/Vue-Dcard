@@ -62,7 +62,7 @@ export default {
     display: inline-block;
     width: 80px;
     padding-bottom: 10px;
-    color: #999999;
+    color: #999;
     cursor: pointer;
   }
 }
