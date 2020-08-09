@@ -1,0 +1,22 @@
+.all {
+  padding: 2rem 3rem;
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.section {
+  border: 1px solid #999;
+  border-radius: 0.2rem;
+  * {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      width: 100%;
+      border-bottom: .2px solid #999;
+    }
+  }
+}

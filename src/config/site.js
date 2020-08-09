@@ -48,23 +48,23 @@ export const KANBAN_LIST = {
   featured: {
     title: "Dacrd 精選看板",
     data: [
-      { name: "穿搭", icon: ["fas", "tshirt"], code: "all" },
-      { name: "程式語言", icon: ["fas", "bug"], code: "all" },
-      { name: "成長", icon: ["fas", "shoe-prints"], code: "all" },
-      { name: "運動", icon: ["fas", "running"], code: "all" },
-      { name: "理財", icon: ["fas", "dollar-sign"], code: "all" },
-      { name: "食物", icon: ["fas", "hamburger"], code: "all" },
-      { name: "西斯", icon: ["fas", "car"], code: "all" },
-      { name: "疫情", icon: ["fas", "biohazard"], code: "all" },
-      { name: "Apple", icon: ["fas", "apple-alt"], code: "all" },
-      { name: "Podcast", icon: ["fas", "microphone"], code: "all" },
-      { name: "居家生活", icon: ["fas", "home"], code: "all" },
-      { name: "追星", icon: ["fas", "star"], code: "all" },
-      { name: "閒聊", icon: ["fas", "comment"], code: "all" },
-      { name: "有趣", icon: ["fas", "grin-alt"], code: "all" },
-      { name: "感情", icon: ["fas", "heart"], code: "all" },
-      { name: "廣告", icon: ["fas", "ad"], code: "all" },
-      { name: "攝影", icon: ["fas", "camera"], code: "all" }
+      { name: "穿搭", icon: ["fas", "tshirt"], code: "wear" },
+      { name: "程式語言", icon: ["fas", "bug"], code: "program" },
+      { name: "成長", icon: ["fas", "shoe-prints"], code: "grow" },
+      { name: "運動", icon: ["fas", "running"], code: "sport" },
+      { name: "理財", icon: ["fas", "dollar-sign"], code: "financial" },
+      { name: "食物", icon: ["fas", "hamburger"], code: "food" },
+      { name: "西斯", icon: ["fas", "car"], code: "sex" },
+      { name: "疫情", icon: ["fas", "biohazard"], code: "covid19" },
+      { name: "Apple", icon: ["fas", "apple-alt"], code: "apple" },
+      { name: "Podcast", icon: ["fas", "microphone"], code: "podcast" },
+      { name: "居家生活", icon: ["fas", "home"], code: "house" },
+      { name: "追星", icon: ["fas", "star"], code: "star" },
+      { name: "閒聊", icon: ["fas", "comment"], code: "talk" },
+      { name: "有趣", icon: ["fas", "grin-alt"], code: "interest" },
+      { name: "感情", icon: ["fas", "heart"], code: "love" },
+      { name: "廣告", icon: ["fas", "ad"], code: "ad" },
+      { name: "攝影", icon: ["fas", "camera"], code: "photograph" }
     ]
   }
 };

@@ -9,14 +9,14 @@
           awesome-icon(:icon="['fas', 'info-circle']") 
           span &nbsp 發文規則
       .user
-        button(v-model="postForm.nickName" @click="selectPostInfo('user')") {{ postForm.nickName }}
+        button(v-model="postForm.name" @click="selectPostInfo('user')") {{ postForm.name }}
       .title
         input(v-model="postForm.title" placeholder="標題")
       .content
         textarea(v-model="postForm.content" type="textarea" placeholder="內文")
       .button
         button 取消
-        button 下一步
+        button(@click="postNewArticle()") 下一步
     
     //- 選擇狀態按鈕
     dialog-page(:visible.sync="isOpenDialog")
@@ -49,7 +49,7 @@
 <script>
 import dialogPage from "@/components/dialog-page";
 import { KANBAN_LIST } from "@/config/site";
-import { deepCopy } from "@/helper";
+import { getNowDateTime, getFirebaseData, setFirebaseData } from "@/helper";
 
 export default {
   name: "new-post",
@@ -70,7 +70,7 @@ export default {
       postForm: {
         kanbanName: "點此選擇發文看板",
         kanbanCode: "",
-        nickName: "請選擇發文身份",
+        name: "請選擇發文身份",
         title: "",
         content: ""
       },
@@ -90,7 +90,7 @@ export default {
 
     selectList() {
       return {
-        kanban: deepCopy(this.kanbanList.data),
+        kanban: [...this.kanbanList.data],
         user: this.userList
       };
     }
@@ -103,7 +103,7 @@ export default {
     },
 
     handleSelect(item) {
-      if (this.isVisible.user) this.postForm.nickName = item.name;
+      if (this.isVisible.user) this.postForm.name = item.name;
       if (this.isVisible.kanban) {
         this.postForm.kanbanName = item.name;
         this.postForm.kanbanCode = item.code;
@@ -114,6 +114,25 @@ export default {
 
     handleRule() {
       this.isOpenRule = !this.isOpenRule;
+    },
+
+    async postNewArticle() {
+      const path = `data/${this.postForm.kanbanCode}`;
+      const list = await getFirebaseData(path);
+      const id = list.length;
+      const value = {
+        id: id,
+        name: this.postForm.name,
+        sex: 1,
+        time: getNowDateTime(),
+        kanban: this.postForm.kanbanName,
+        title: this.postForm.title,
+        content: this.postForm.content,
+        img: "picture",
+        mood: 0,
+        react: 0
+      };
+      await setFirebaseData(`path/${id}`, value);
     }
   }
 };

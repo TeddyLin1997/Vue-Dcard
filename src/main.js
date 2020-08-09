@@ -4,7 +4,7 @@ import store from "./store";
 import { mapActions } from "vuex";
 import App from "./views/App.vue";
 import message from "@/components/message-box/message.js";
-import { database, auth } from "./config/firebase";
+import { auth } from "./config/firebase";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,6 @@ library.add(fas);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$database = database;
 Vue.prototype.$auth = auth;
 Vue.prototype.$message = message;
 

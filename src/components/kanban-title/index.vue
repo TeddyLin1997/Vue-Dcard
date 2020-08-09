@@ -1,8 +1,8 @@
 <template lang="pug">
 .kanban__header__title
   .kanban__name
-    circle-icon(:icon="icon" :icon-size="24" :border-size="40" border)
-    span {{ label }}
+    circle-icon(:icon="icon" :icon-size="iconSize" :border-size="40" border)
+    span(ref="title") {{ label }}
   .kanban__follow
     button(type="button") 追蹤
 </template>
@@ -22,11 +22,25 @@ export default {
     icon: {
       type: Array,
       required: true
+    },
+
+    iconSize: {
+      type: Number,
+      default: 24
+    },
+
+    fontSize: {
+      type: Number,
+      default: 16
     }
   },
 
   components: {
     circleIcon
+  },
+
+  mounted() {
+    this.$refs.title.style.fontSize = this.fontSize + "px";
   }
 };
 </script>
