@@ -10,8 +10,20 @@
 }
 
 .dialog {
+  position: relative;
   margin: auto;
-  padding: 1rem;
   background-color: #fff;
   border-radius: 1rem;
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  width: 100%;
+  text-align: right;
+}
+
+.icon {
+  cursor: pointer;
 }
