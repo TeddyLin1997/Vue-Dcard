@@ -76,7 +76,7 @@ export default {
       },
       activeSelect: "kanban",
       isOpenDialog: false,
-      isOpenRule: true
+      isOpenRule: false
     };
   },
 
