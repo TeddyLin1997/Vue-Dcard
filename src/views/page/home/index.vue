@@ -18,7 +18,6 @@ import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
 import articleItem from "@/components/article-item";
 import { TAB_LIST } from "@/config/site";
-import { getFirebaseData } from "@/helper";
 
 export default {
   name: "home",
@@ -38,7 +37,7 @@ export default {
   },
 
   async created() {
-    this.data = await getFirebaseData("data/home");
+    this.data = await this.$database.get("data/home");
   }
 };
 </script>

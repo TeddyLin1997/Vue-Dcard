@@ -49,7 +49,7 @@
 <script>
 import dialogPage from "@/components/dialog-page";
 import { KANBAN_LIST } from "@/config/site";
-import { getNowDateTime, getFirebaseData, setFirebaseData } from "@/helper";
+import { getNowDateTime } from "@/helper";
 
 export default {
   name: "new-post",
@@ -118,8 +118,8 @@ export default {
 
     async postNewArticle() {
       const path = `data/${this.postForm.kanbanCode}`;
-      const list = await getFirebaseData(path);
-      const id = list.length;
+      const list = await this.$database.get(path);
+      const id = list ? list.length : 1;
       const value = {
         id: id,
         name: this.postForm.name,
@@ -132,7 +132,7 @@ export default {
         mood: 0,
         react: 0
       };
-      await setFirebaseData(`path/${id}`, value);
+      await this.$database.set(`${path}/${id}`, value);
     }
   }
 };
