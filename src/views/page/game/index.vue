@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game
+  #game
     h1 遊戲專區
 </template>
 
@@ -8,3 +8,7 @@ export default {
   name: "game"
 };
 </script>
+
+<style lang="scss" scoped>
+@import "./style.scss";
+</style>

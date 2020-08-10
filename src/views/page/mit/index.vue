@@ -1,5 +1,5 @@
 <template lang="pug">
-  .mit
+  #mit
     h1 麻省理工學院
 </template>
 
@@ -8,3 +8,7 @@ export default {
   name: "mit"
 };
 </script>
+
+<style lang="scss" scoped>
+@import "./style.scss";
+</style>

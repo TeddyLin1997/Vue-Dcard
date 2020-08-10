@@ -1,11 +1,11 @@
 <template lang="pug">
-  #good
-    h1 好物研究室
+  #wear
+    h1 穿搭
 </template>
 
 <script>
 export default {
-  name: "good"
+  name: "wear"
 };
 </script>
 

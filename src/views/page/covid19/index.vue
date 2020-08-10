@@ -1,11 +1,11 @@
 <template lang="pug">
-  #good
-    h1 好物研究室
+  #covid19
+    h1 疫情
 </template>
 
 <script>
 export default {
-  name: "good"
+  name: "covid19"
 };
 </script>
 

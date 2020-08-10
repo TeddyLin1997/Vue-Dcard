@@ -1,5 +1,5 @@
 <template lang="pug">
-  .home
+  #home
     kanban-container
       template(#header)
         header.header

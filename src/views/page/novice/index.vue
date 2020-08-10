@@ -1,5 +1,5 @@
 <template lang="pug">
-  .novice
+  #novice
     h1 社會新鮮人熱門看版
 </template>
 
@@ -8,3 +8,7 @@ export default {
   name: "novice"
 };
 </script>
+
+<style lang="scss" scoped>
+@import "./style.scss";
+</style>

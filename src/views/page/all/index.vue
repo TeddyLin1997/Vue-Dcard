@@ -1,5 +1,5 @@
 <template lang="pug">
-  .all
+  #all
     .section
       kanbanTitle(v-for="kanban of kanbanTitleList" :key="kanban.code" :label="kanban.name" :icon="kanban.icon" :icon-size="16")
 </template>
