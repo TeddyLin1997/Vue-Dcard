@@ -1,11 +1,11 @@
 <template lang="pug">
   .kanban
     //- 看板群標題
-    h1.kanban__title(v-if="kanbanData.title") {{ kanbanData.title }}
+    h1.kanban__title(v-if="data.title") {{ data.title }}
     //- 看板項目
-    .kanban__group(v-if="kanbanData.data.length")
-      router-link.kanban__item(v-for="kanban of kanbanData.data" :key="kanban.name" :to="kanban.code")
-        circle-icon(:icon="kanban.icon")
+    .kanban__group(v-if="data.data.length")
+      router-link.kanban__item(v-for="kanban of data.data" :key="kanban.name" :to="kanban.code")
+        circle-icon(:icon="kanban.icon" :icon-size="iconSize" :color="color" :background-color="backgroundColor")
         .content
           span {{ kanban.name }}
     
@@ -23,11 +23,26 @@ export default {
   },
 
   props: {
-    kanbanData: {
+    data: {
       type: Object,
       default() {
         return { title: "", data: [] };
       }
+    },
+
+    iconSize: {
+      type: Number,
+      default: 16
+    },
+
+    color: {
+      type: String,
+      default: "#000"
+    },
+
+    backgroundColor: {
+      type: String,
+      default: "#fff"
     }
   }
 };

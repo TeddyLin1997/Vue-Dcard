@@ -43,10 +43,14 @@ export default {
     getEvent(action) {
       if (action === "dropdown") this.openDropDown = !this.openDropDown;
 
-      if (action === "user") this.$router.push({ name: "user" });
-      if (action === "mail") this.$router.push({ name: "mail" });
-      if (action === "lottery") this.$router.push({ name: "lottery" });
-      if (action === "post") this.$router.push({ name: "new-post" });
+      if (action === "user")
+        this.$router.push({ name: "user" }).catch(() => {});
+      if (action === "mail")
+        this.$router.push({ name: "mail" }).catch(() => {});
+      if (action === "lottery")
+        this.$router.push({ name: "lottery" }).catch(() => {});
+      if (action === "post")
+        this.$router.push({ name: "new-post" }).catch(() => {});
     },
 
     logOut() {

@@ -26,6 +26,16 @@ export default {
     borderSize: {
       type: Number,
       default: 30
+    },
+
+    color: {
+      type: String,
+      default: "#000"
+    },
+
+    backgroundColor: {
+      type: String,
+      default: "#fff"
     }
   },
 
@@ -33,7 +43,10 @@ export default {
     this.$refs.circle.style.width = this.borderSize + "px";
     this.$refs.circle.style.height = this.borderSize + "px";
     this.$refs.circle.style.lineHeight = this.borderSize + "px";
+    this.$refs.circle.style.backgroundColor = this.backgroundColor;
+
     this.$refs.icon.style.fontSize = this.iconSize + "px";
+    this.$refs.icon.style.color = this.color;
   }
 };
 </script>

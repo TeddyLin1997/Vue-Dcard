@@ -1,0 +1,43 @@
+#user {
+  @include flex();
+  background-color: $blackBlue;
+  height: 100vh;
+}
+
+.nav {
+  margin: 1rem;
+  width: 200px;
+  height: 660px;
+  color: #fff;
+  text-align: center;
+  * {
+    margin-bottom: 1rem;
+  }
+}
+
+.avatar {
+  margin: 0 auto 1rem;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.school {
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.main {
+  margin: 1rem;
+  width: 760px;;
+  height: 660px;
+  padding: 20px 60px;
+  background-color: #fff;
+  border-radius: .8rem;
+}

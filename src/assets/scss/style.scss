@@ -1,6 +1,8 @@
 $darkBlue: #2c3e50;
-$seaBlue: #00588A;
+$seaBlue: #00588a;
 $skyBlue: #006aa6;
+$blackBlue: #00324e;
+$btnBlue: #3397cf;
 
 @mixin flex($direction:row , $mainAlign:center, $viceAlign:center) {
   display: flex;

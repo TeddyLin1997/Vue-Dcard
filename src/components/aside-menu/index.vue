@@ -1,8 +1,8 @@
 <template lang="pug">
   .aside-menu
-    kanban(:kanbanData="kanbanList.defalut")
-    kanban(:kanbanData="kanbanList.follows")
-    kanban(:kanbanData="kanbanList.featured")
+    kanban(:data="kanbanList.defalut")
+    kanban(:data="kanbanList.follows")
+    kanban(:data="kanbanList.featured")
 </template>
 
 <script>
