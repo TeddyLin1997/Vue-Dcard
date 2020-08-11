@@ -17,9 +17,9 @@ import popover from "@/components/popover";
 const functionList = [
   { id: "post", name: "發文", icon: ["fas", "pen"] },
   { id: "notice", name: "通知", icon: ["fas", "bell"] },
-  { id: "card", name: "抽卡", icon: ["fas", "dice-d6"] },
+  { id: "lottery", name: "抽卡", icon: ["fas", "dice-d6"] },
   { id: "mail", name: "個人信箱", icon: ["fas", "envelope"] },
-  { id: "info", name: "個人資料", icon: ["fas", "user"] },
+  { id: "user", name: "個人資料", icon: ["fas", "user"] },
   { id: "dropdown", name: "下拉選單", icon: ["fas", "caret-down"] }
 ];
 
@@ -43,6 +43,9 @@ export default {
     getEvent(action) {
       if (action === "dropdown") this.openDropDown = !this.openDropDown;
 
+      if (action === "user") this.$router.push({ name: "user" });
+      if (action === "mail") this.$router.push({ name: "mail" });
+      if (action === "lottery") this.$router.push({ name: "lottery" });
       if (action === "post") this.$router.push({ name: "new-post" });
     },
 
