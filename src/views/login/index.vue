@@ -9,21 +9,26 @@
         v-for="page of pageList"
         :key="page.id"
         @click="changePage(page.code)"
-        :class="isActive(page.code, 'object')"
+        :class="{ 'active' : activePage[page.code] }"
       ) 
         awesome-icon(:icon="page.icon")
         span &nbsp {{ page.label }}
     
     //- 輸入框
-    div(v-for="page of pageList" :key="page.id")
-      .window(v-if="isActive(page.code)")
-        .account
-          span 信箱
-          input(type="text" placeholder="請輸入信箱" @keyup.enter="submit(page.code)" v-model="userForm[page.code].account")
-        .password
-          span 密碼
-          input(type="password" placeholder=" 請輸入密碼" @keyup.enter="submit(page.code)" v-model="userForm[page.code].password")
-        button(@click="submit(page.code)") 送出
+    .window(ref="window")
+      div(v-show="activePage.register")
+        span 名稱
+        input(v-model="userForm[active].name" type="text" placeholder="請輸入名稱")
+      div(v-show="activePage.register")
+        span 學校
+        input(v-model="userForm[active].school" type="text" placeholder="請輸入學校")
+      div
+        span 信箱
+        input(v-model="userForm[active].account" type="text" placeholder="請輸入信箱")
+      div
+        span 密碼
+        input(v-model="userForm[active].password" type="password" placeholder=" 請輸入密碼" @keyup.enter="submit(active)")
+      button(@click="submit(active)") 送出
 </template>
 
 <script>
@@ -48,7 +53,9 @@ export default {
         },
         register: {
           account: "",
-          password: ""
+          password: "",
+          name: "",
+          school: ""
         }
       }
     };
@@ -57,8 +64,8 @@ export default {
   computed: {
     activePage() {
       return {
-        login: this.active === this.pageList[0],
-        register: this.active === this.pageList[1]
+        login: this.active === this.pageList[0].code,
+        register: this.active === this.pageList[1].code
       };
     }
   },
@@ -67,7 +74,7 @@ export default {
     ...mapActions(["setUserInfo"]),
 
     // 表單送出按鈕
-    submit(code) {
+    async submit(code) {
       // 登入
       if (code === "login") {
         this.$auth
@@ -87,7 +94,14 @@ export default {
             this.userForm.register.account,
             this.userForm.register.password
           )
-          .then(() => this.$message("成功"))
+          .then(res => {
+            const path = `user/${res.user.uid}`;
+            this.$database.setUser(path, this.userForm.register);
+          })
+          .then(() => {
+            this.$message("成功");
+            this.active = "login";
+          })
           .catch(err => this.$message(err.message, "error"));
       }
     },
@@ -95,12 +109,6 @@ export default {
     // 切換頁
     changePage(value) {
       this.active = value;
-    },
-
-    // 簡化template
-    isActive(code, type = "bool") {
-      if (type === "bool") return this.active === code;
-      if (type === "object") return { active: this.active === code };
     },
 
     // 設定使用者資料

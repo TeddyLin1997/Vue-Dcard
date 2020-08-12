@@ -13,9 +13,9 @@ library.add(fas);
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$message = message;
 Vue.prototype.$database = database;
 Vue.prototype.$auth = auth;
-Vue.prototype.$message = message;
 
 Vue.component("awesome-icon", FontAwesomeIcon);
 

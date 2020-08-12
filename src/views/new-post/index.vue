@@ -118,10 +118,7 @@ export default {
 
     async postNewArticle() {
       const path = `data/${this.postForm.kanbanCode}`;
-      const list = await this.$database.get(path);
-      const id = list ? list.length : 1;
       const value = {
-        id: id,
         name: this.postForm.name,
         sex: 1,
         time: getNowDateTime(),
@@ -132,7 +129,12 @@ export default {
         mood: 0,
         react: 0
       };
-      await this.$database.set(`${path}/${id}`, value);
+
+      const result = await this.$database.setArticle(path, value);
+      if (result.status) {
+        this.$message("發表成功");
+        this.$router.push({ name: this.postForm.kanbanCode, query: result.id });
+      } else this.$message("發表失敗", "error");
     }
   }
 };

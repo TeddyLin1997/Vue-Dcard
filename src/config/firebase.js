@@ -17,24 +17,37 @@ firebase.initializeApp(firebaseConfig);
 // 擴充database方法
 export const database = {
   get: path => {
-    return new Promise((resolve, reject) => {
-      firebase
-        .database()
-        .ref(path)
-        .once("value")
-        .then(snapshot => resolve(snapshot.val()))
-        .catch(err => reject(err));
-    });
+    return firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val())
+      .catch(err => err);
   },
 
-  set: (path, value) => {
-    return new Promise((resolve, reject) => {
-      firebase
-        .database()
-        .ref(path)
-        .set(value)
-        .catch(err => reject(err));
-    });
+  setArticle: async (path, value) => {
+    const id = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot?.val()?.length ?? 0);
+
+    return firebase
+      .database()
+      .ref(`${path}/${id}`)
+      .set({ ...value, id: id })
+      .then(() => {
+        return { id: id, status: true };
+      })
+      .catch(err => err);
+  },
+
+  setUser: (path, value) => {
+    return firebase
+      .database()
+      .ref(path)
+      .set(value)
+      .catch(err => err);
   }
 };
 

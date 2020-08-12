@@ -41,7 +41,7 @@
   @include flex(column, space-between);
   padding: 1rem;
   width: 500px;
-  height: 250px;
+  // height: 350px;
   color: #fff;
   background-color: $skyBlue;
   border-bottom-left-radius: 6px;
@@ -63,6 +63,7 @@
   }
 
   button {
+    margin: 1rem;
     width: 120px;
     padding: .6rem;
     background-color: $seaBlue;
