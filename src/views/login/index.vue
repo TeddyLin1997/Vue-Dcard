@@ -112,11 +112,18 @@ export default {
     },
 
     // 設定使用者資料
-    saveUserInfo() {
+    async saveUserInfo() {
       const user = this.$auth.currentUser;
 
       if (user) {
-        const userInfo = { email: user.email, uid: user.uid };
+        const data = await this.$database.get(`user/${user.uid}`);
+        const userInfo = {
+          account: data.account,
+          name: data.name,
+          school: data.school,
+          email: user.email,
+          uid: user.uid
+        };
         this.setUserInfo(userInfo);
       }
     }
