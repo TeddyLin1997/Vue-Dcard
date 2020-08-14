@@ -3,7 +3,6 @@
     kanban-container
       template(#header)
         header.header
-          kanban-title(:label="'首頁'" :icon="['fas', 'home']" :font-size="26")
           kanban-tabs(:data="tabList" :fadeOut="true")
       template(#article)
         article

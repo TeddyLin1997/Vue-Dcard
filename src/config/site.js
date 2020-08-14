@@ -196,16 +196,13 @@ export const KANBAN_LIST = {
 };
 
 // 使用者導覽列
-export const USER_NAVIGATION_LIST = {
-  title: "",
-  data: [
-    { name: "我的收藏", icon: ["fas", "bookmark"], code: "collect" },
-    { name: "我追蹤的看板", icon: ["fas", "heart"], code: "followkanban" },
-    { name: "我追蹤的卡稱", icon: ["fas", "rss"], code: "followid" },
-    { name: "我發表的文章", icon: ["fas", "pen-square"], code: "article" },
-    { name: "抽卡自我介紹", icon: ["fas", "dice-d6"], code: "introduction" },
-    { name: "我的卡稱", icon: ["fas", "id-badge"], code: "id" },
-    { name: "我的卡友", icon: ["fas", "user-friends"], code: "friend" },
-    { name: "設定", icon: ["fas", "cog"], code: "setting" }
-  ]
-};
+export const USER_NAVIGATION_LIST = [
+  { name: "我的收藏", icon: ["fas", "bookmark"], code: "collect" },
+  { name: "我追蹤的看板", icon: ["fas", "heart"], code: "followkanban" },
+  { name: "我追蹤的卡稱", icon: ["fas", "rss"], code: "followid" },
+  { name: "我發表的文章", icon: ["fas", "pen-square"], code: "article" },
+  { name: "抽卡自我介紹", icon: ["fas", "dice-d6"], code: "introduction" },
+  { name: "我的卡稱", icon: ["fas", "id-badge"], code: "id" },
+  { name: "我的卡友", icon: ["fas", "user-friends"], code: "friend" },
+  { name: "設定", icon: ["fas", "cog"], code: "setting" }
+];

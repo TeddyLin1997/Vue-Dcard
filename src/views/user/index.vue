@@ -1,24 +1,30 @@
 <template lang="pug">
   #user
-    .nav
+    .aside
+      //- 個人資料
       .avatar
         img(src="https://picsum.photos/100/100?random=7414")
       .name {{ userInfo.name }}
       .school {{ userInfo.school }}
-      kanban(:data="userNavigationList" :icon-size="20" color="#3397cf" background-color="#00324e")
+      //- 導覽列
+      article
+        .kanban__item(v-for="item of userNavigationList" :key="item.code" )
+          circle-icon(:icon="item.icon" :icon-size="18")
+          span.content {{ item.name }}
+
     .main
 </template>
 
 <script>
+import circleIcon from "@/components/circle-icon";
 import { USER_NAVIGATION_LIST } from "@/config/site";
-import kanban from "@/components/kanban";
 import { mapState } from "vuex";
 
 export default {
   name: "user",
 
   components: {
-    kanban
+    circleIcon
   },
 
   data() {
