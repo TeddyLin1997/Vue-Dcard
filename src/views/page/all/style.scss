@@ -9,14 +9,12 @@
 .section {
   border: 1px solid #999;
   border-radius: 0.2rem;
-  * {
-    position: relative;
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      width: 100%;
-      border-bottom: .2px solid #999;
-    }
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    border-bottom: 10px solid #999;
   }
 }

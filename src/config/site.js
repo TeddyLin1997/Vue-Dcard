@@ -118,15 +118,15 @@ export const KANBAN_LIST = {
         name: "西斯",
         icon: ["fas", "car"],
         code: "sex",
-        color: "#00588a",
-        fontColor: "#b42536"
+        color: "#f90000",
+        fontColor: "#000"
       },
       {
         name: "Apple",
         icon: ["fas", "apple-alt"],
         code: "apple",
-        color: "#fff",
-        fontColor: "#000"
+        color: "#000",
+        fontColor: "#fff"
       },
       {
         name: "疫情",
