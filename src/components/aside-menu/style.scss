@@ -1,3 +1,8 @@
+.aside-menu {
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+
 .kanban__group {
   margin-bottom: 1rem;
   width: 200px;

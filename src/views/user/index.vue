@@ -6,13 +6,14 @@
         img(src="https://picsum.photos/100/100?random=7414")
       .name {{ userInfo.name }}
       .school {{ userInfo.school }}
+
       //- 導覽列
       article
         .kanban__item(v-for="item of userNavigationList" :key="item.code" )
-          circle-icon(:icon="item.icon" :icon-size="18")
+          circle-icon(:icon="item.icon" :icon-size="18" :color="item.fontColor" :background-color="item.color")
           span.content {{ item.name }}
 
-    .main
+    main
 </template>
 
 <script>

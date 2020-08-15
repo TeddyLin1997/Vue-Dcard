@@ -1,28 +1,21 @@
 <template lang="pug">
   #home
-    kanban-container
-      template(#header)
-        header.header
-          kanban-tabs(:data="tabList" :fadeOut="true")
-      template(#article)
-        article
-          article-item(:data="data")
-      template(#footer)
-        footer
+    header
+      kanban-tabs(:data="tabList" :fadeOut="true")
+    body
+      article-item(:data="articleList")
 </template>
 
 <script>
-import kanbanContainer from "@/components/kanban-container";
+import { mapState } from "vuex";
 import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
 import articleItem from "@/components/article-item";
-import { TAB_LIST } from "@/config/site";
 
 export default {
   name: "home",
 
   components: {
-    kanbanContainer,
     kanbanTabs,
     kanbanTitle,
     articleItem
@@ -30,13 +23,16 @@ export default {
 
   data() {
     return {
-      tabList: TAB_LIST,
-      data: []
+      articleList: []
     };
   },
 
+  computed: {
+    ...mapState(["tabList"])
+  },
+
   async created() {
-    this.data = await this.$database.get("data/home");
+    this.articleList = await this.$database.get("data/home");
   }
 };
 </script>

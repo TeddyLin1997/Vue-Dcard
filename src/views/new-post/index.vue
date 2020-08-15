@@ -48,8 +48,8 @@
 
 <script>
 import dialogPage from "@/components/dialog-page";
-import { KANBAN_LIST } from "@/config/site";
 import { getNowDateTime } from "@/helper";
+import { mapState } from "vuex";
 
 export default {
   name: "new-post",
@@ -60,7 +60,7 @@ export default {
 
   data() {
     return {
-      kanbanList: KANBAN_LIST.featured,
+      kanbanList: this.kanbanList.data,
       userList: [
         { name: "匿名", icon: ["fas", "users-slash"] },
         { name: "學校名稱", icon: ["fas", "graduation-cap"] },
@@ -81,6 +81,8 @@ export default {
   },
 
   computed: {
+    ...mapState(["kanbanList"]),
+
     isVisible() {
       return {
         kanban: this.activeSelect === "kanban",

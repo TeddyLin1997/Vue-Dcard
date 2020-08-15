@@ -197,12 +197,60 @@ export const KANBAN_LIST = {
 
 // 使用者導覽列
 export const USER_NAVIGATION_LIST = [
-  { name: "我的收藏", icon: ["fas", "bookmark"], code: "collect" },
-  { name: "我追蹤的看板", icon: ["fas", "heart"], code: "followkanban" },
-  { name: "我追蹤的卡稱", icon: ["fas", "rss"], code: "followid" },
-  { name: "我發表的文章", icon: ["fas", "pen-square"], code: "article" },
-  { name: "抽卡自我介紹", icon: ["fas", "dice-d6"], code: "introduction" },
-  { name: "我的卡稱", icon: ["fas", "id-badge"], code: "id" },
-  { name: "我的卡友", icon: ["fas", "user-friends"], code: "friend" },
-  { name: "設定", icon: ["fas", "cog"], code: "setting" }
+  {
+    name: "我的收藏",
+    icon: ["fas", "bookmark"],
+    code: "collect",
+    color: "#00324e",
+    fontColor: "#ee7832"
+  },
+  {
+    name: "我追蹤的看板",
+    icon: ["fas", "heart"],
+    code: "followkanban",
+    color: "#00324e",
+    fontColor: "#c84865"
+  },
+  {
+    name: "我追蹤的卡稱",
+    icon: ["fas", "rss"],
+    code: "followid",
+    color: "#00324e",
+    fontColor: "#109faf"
+  },
+  {
+    name: "我發表的文章",
+    icon: ["fas", "pencil-alt"],
+    code: "article",
+    color: "#00324e",
+    fontColor: "#f6bf02"
+  },
+  {
+    name: "抽卡自我介紹",
+    icon: ["fas", "dice-d6"],
+    code: "introduction",
+    color: "#00324e",
+    fontColor: "#b27716"
+  },
+  {
+    name: "我的卡稱",
+    icon: ["fas", "id-badge"],
+    code: "id",
+    color: "#00324e",
+    fontColor: "#3397cf"
+  },
+  {
+    name: "我的卡友",
+    icon: ["fas", "user-friends"],
+    code: "friend",
+    color: "#00324e",
+    fontColor: "#3397cf"
+  },
+  {
+    name: "設定",
+    icon: ["fas", "cog"],
+    code: "setting",
+    color: "#00324e",
+    fontColor: "#64818c"
+  }
 ];

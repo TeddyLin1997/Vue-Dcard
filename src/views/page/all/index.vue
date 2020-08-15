@@ -1,7 +1,7 @@
 <template lang="pug">
   #all
     .section
-      kanbanTitle(v-for="kanban of kanbanTitleList" :key="kanban.code")
+      kanbanTitle.kanban__title(v-for="kanban of kanbanList" :key="kanban.code")
         circle-icon(
           :icon="kanban.icon"
           :icon-size="20"
@@ -15,7 +15,7 @@
 <script>
 import circleIcon from "@/components/circle-icon";
 import kanbanTitle from "@/components/kanban-title";
-import { KANBAN_LIST } from "@/config/site";
+import { mapState } from "vuex";
 
 export default {
   name: "all",
@@ -26,10 +26,7 @@ export default {
   },
 
   computed: {
-    kanbanTitleList() {
-      const result = [...KANBAN_LIST.featured.data];
-      return result;
-    }
+    ...mapState(["kanbanList"])
   }
 };
 </script>
