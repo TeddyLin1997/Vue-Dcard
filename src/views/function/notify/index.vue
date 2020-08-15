@@ -1,11 +1,11 @@
 <template lang="pug">
-  #mail
+  #notify
     h1 信箱
 </template>
 
 <script>
 export default {
-  name: "mail"
+  name: "notify"
 };
 </script>
 

@@ -23,9 +23,9 @@
       .select
         h1 請選擇
         .list
-          div(v-for="item of selectList[activeSelect]" :key="item.name" @click="handleSelect(item)")
-            awesome-icon(:icon="item.icon")
-            span {{ item.name }}
+          div(v-for="kanban of selectList[activeSelect]" :key="kanban.name" @click="handleSelect(kanban)")
+            circle-icon(:icon="kanban.icon" :icon-size="18" :color="kanban.fontColor" :background-color="kanban.color")
+            span {{ kanban.name }}
     
     //- 發文規則
     dialog-page(:visible.sync="isOpenRule" width="600px")
@@ -48,6 +48,7 @@
 
 <script>
 import dialogPage from "@/components/dialog-page";
+import circleIcon from "@/components/circle-icon";
 import { getNowDateTime } from "@/helper";
 import { mapState } from "vuex";
 
@@ -55,12 +56,12 @@ export default {
   name: "new-post",
 
   components: {
-    dialogPage
+    dialogPage,
+    circleIcon
   },
 
   data() {
     return {
-      kanbanList: this.kanbanList.data,
       userList: [
         { name: "匿名", icon: ["fas", "users-slash"] },
         { name: "學校名稱", icon: ["fas", "graduation-cap"] },
@@ -92,7 +93,7 @@ export default {
 
     selectList() {
       return {
-        kanban: [...this.kanbanList.data],
+        kanban: [...this.kanbanList],
         user: this.userList
       };
     }

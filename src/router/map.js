@@ -7,22 +7,22 @@ export const routes = [
   {
     path: "/user",
     name: "user",
-    component: () => import("@/views/user")
+    component: () => import("@/views/function/user")
   },
   {
-    path: "/mail",
-    name: "mail",
-    component: () => import("@/views/mail")
+    path: "/notify",
+    name: "notify",
+    component: () => import("@/views/function/notify")
   },
   {
     path: "/lottery",
     name: "lottery",
-    component: () => import("@/views/lottery")
+    component: () => import("@/views/function/lottery")
   },
   {
     path: "/new-post",
     name: "new-post",
-    component: () => import("@/views/new-post")
+    component: () => import("@/views/function/new-post")
   },
   {
     path: "/",
