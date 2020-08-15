@@ -1,6 +1,6 @@
 #no-data-search {
   @include flex(column);
-  height: calc(100vh - 300px);
+  min-height: calc(100vh - 300px);
 
   .icon {
     font-size: 5rem;

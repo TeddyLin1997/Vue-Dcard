@@ -136,7 +136,10 @@ export default {
       const result = await this.$database.setArticle(path, value);
       if (result.status) {
         this.$message("發表成功");
-        this.$router.push({ name: this.postForm.kanbanCode, query: result.id });
+        this.$router.push({
+          name: "kanban",
+          params: { kanban: this.postForm.kanbanCode, id: result.id }
+        });
       } else this.$message("發表失敗", "error");
     }
   }

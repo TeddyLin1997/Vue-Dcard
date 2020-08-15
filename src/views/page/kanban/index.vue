@@ -6,10 +6,9 @@
         span {{ kanban.name }}
       kanban-tabs(:data="tabList" :fadeOut="true")
 
-    div(v-if="haveArticle")
-      article-item(:data="articleList")
-    div(v-else)
-      no-data-search
+    body
+      article-item(v-if="haveArticle" :data="articleList")
+      no-data-search(v-else)
       
     
 </template>
@@ -54,8 +53,17 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newVal) {
+        const path = `data/${newVal.kanban}`;
         this.kanban = this.kanbanObject(newVal.kanban);
+        this.getArticleList(path);
       }
+    }
+  },
+
+  methods: {
+    async getArticleList(path) {
+      const result = await this.$database.get(path);
+      this.articleList = result ? result : [];
     }
   }
 };
