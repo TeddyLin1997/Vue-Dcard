@@ -32,7 +32,7 @@ export default {
   },
 
   async created() {
-    this.articleList = await this.$database.get("data/home");
+    this.articleList = await this.$database.getArticle("data/home");
   }
 };
 </script>

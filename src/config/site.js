@@ -71,8 +71,8 @@ export const KANBAN_LIST = {
       name: "穿搭",
       icon: ["fas", "tshirt"],
       code: "wear",
-      color: "#3397cf",
-      fontColor: "#f97c00"
+      color: "#34A7E6",
+      fontColor: "#eee"
     },
     {
       name: "成長",
@@ -92,8 +92,8 @@ export const KANBAN_LIST = {
       name: "運動",
       icon: ["fas", "running"],
       code: "sport",
-      color: "#7096c5",
-      fontColor: "#f9f748"
+      color: "#01e4ea",
+      fontColor: "#020003"
     },
     {
       name: "理財",

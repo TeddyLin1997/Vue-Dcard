@@ -16,13 +16,14 @@ firebase.initializeApp(firebaseConfig);
 
 // 擴充database方法
 export const database = {
-  get: path => {
-    return firebase
+  getArticle: async path => {
+    const result = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val())
       .catch(err => err);
+    return result ? result.reverse() : [];
   },
 
   setArticle: async (path, value) => {
@@ -39,6 +40,15 @@ export const database = {
       .then(() => {
         return { id: id, status: true };
       })
+      .catch(err => err);
+  },
+
+  getUser: path => {
+    return firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val())
       .catch(err => err);
   },
 

@@ -23,9 +23,11 @@
       .select
         h1 請選擇
         .list
-          div(v-for="kanban of selectList[activeSelect]" :key="kanban.name" @click="handleSelect(kanban)")
-            circle-icon(:icon="kanban.icon" :icon-size="18" :color="kanban.fontColor" :background-color="kanban.color")
-            span {{ kanban.name }}
+          article(v-for="kanban of selectList[activeSelect]" :key="kanban.name" @click="handleSelect(kanban)")
+            .icon
+              circle-icon(:icon="kanban.icon" :icon-size="18" :color="kanban.fontColor" :background-color="kanban.color")
+            .text
+              span {{ kanban.name }}
     
     //- 發文規則
     dialog-page(:visible.sync="isOpenRule" width="600px")
@@ -62,12 +64,6 @@ export default {
 
   data() {
     return {
-      userList: [
-        { name: "匿名", icon: ["fas", "users-slash"] },
-        { name: "學校名稱", icon: ["fas", "graduation-cap"] },
-        { name: "學校名稱 + ID", icon: ["fas", "house-user"] },
-        { name: "ID", icon: ["fas", "user-circle"] }
-      ],
       postForm: {
         kanbanName: "點此選擇發文看板",
         kanbanCode: "",
@@ -82,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["kanbanList"]),
+    ...mapState(["kanbanList", "userInfo"]),
 
     isVisible() {
       return {
@@ -94,7 +90,24 @@ export default {
     selectList() {
       return {
         kanban: [...this.kanbanList],
-        user: this.userList
+        user: [
+          { name: "匿名", icon: ["fas", "users-slash"], fontColor: "#cb1818" },
+          {
+            name: this.userInfo.school,
+            icon: ["fas", "graduation-cap"],
+            fontColor: "#f3ae00"
+          },
+          {
+            name: `${this.userInfo.school}  ${this.userInfo.name}`,
+            icon: ["fas", "house-user"],
+            fontColor: "#006AA6"
+          },
+          {
+            name: this.userInfo.name,
+            icon: ["fas", "user-circle"],
+            fontColor: "#08aa18"
+          }
+        ]
       };
     }
   },

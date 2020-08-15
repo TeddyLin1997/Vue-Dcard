@@ -62,8 +62,7 @@ export default {
 
   methods: {
     async getArticleList(path) {
-      const result = await this.$database.get(path);
-      this.articleList = result ? result : [];
+      this.articleList = await this.$database.getArticle(path);
     }
   }
 };

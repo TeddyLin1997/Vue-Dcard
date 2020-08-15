@@ -116,7 +116,8 @@ export default {
       const user = this.$auth.currentUser;
 
       if (user) {
-        const data = await this.$database.get(`user/${user.uid}`);
+        const path = `user/${user.uid}`;
+        const data = await this.$database.getUser(path);
         const userInfo = {
           account: data.account,
           name: data.name,
