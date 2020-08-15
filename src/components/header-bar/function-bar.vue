@@ -12,16 +12,8 @@
 
 <script>
 import { mapActions } from "vuex";
+import { FUNCTION_LIST } from "@/config/site";
 import popover from "@/components/popover";
-
-const functionList = [
-  { id: "post", name: "發文", icon: ["fas", "pen"] },
-  { id: "notice", name: "通知", icon: ["fas", "bell"] },
-  { id: "lottery", name: "抽卡", icon: ["fas", "dice-d6"] },
-  { id: "mail", name: "個人信箱", icon: ["fas", "envelope"] },
-  { id: "user", name: "個人資料", icon: ["fas", "user"] },
-  { id: "dropdown", name: "下拉選單", icon: ["fas", "caret-down"] }
-];
 
 export default {
   name: "function-bar",
@@ -32,7 +24,7 @@ export default {
 
   data() {
     return {
-      functionList: functionList,
+      functionList: FUNCTION_LIST,
       openDropDown: false
     };
   },
@@ -41,16 +33,11 @@ export default {
     ...mapActions(["setUserInfo"]),
 
     getEvent(action) {
-      if (action === "dropdown") this.openDropDown = !this.openDropDown;
+      if (action === "dropdown")
+        return (this.openDropDown = !this.openDropDown);
+      if (action === "notify") return;
 
-      if (action === "user")
-        this.$router.push({ name: "user" }).catch(() => {});
-      if (action === "mail")
-        this.$router.push({ name: "mail" }).catch(() => {});
-      if (action === "lottery")
-        this.$router.push({ name: "lottery" }).catch(() => {});
-      if (action === "post")
-        this.$router.push({ name: "new-post" }).catch(() => {});
+      this.$router.push({ name: action }).catch(() => {});
     },
 
     logOut() {

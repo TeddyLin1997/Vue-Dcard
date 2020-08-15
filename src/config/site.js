@@ -1,3 +1,12 @@
+export const FUNCTION_LIST = [
+  { id: "new-post", name: "發文", icon: ["fas", "pen"] },
+  { id: "notify", name: "通知", icon: ["fas", "bell"] },
+  { id: "lottery", name: "抽卡", icon: ["fas", "dice-d6"] },
+  { id: "e-mail", name: "個人信箱", icon: ["fas", "envelope"] },
+  { id: "user", name: "個人資料", icon: ["fas", "user"] },
+  { id: "dropdown", name: "下拉選單", icon: ["fas", "caret-down"] }
+];
+
 // 看板分類排行
 export const TAB_LIST = [
   "全部",

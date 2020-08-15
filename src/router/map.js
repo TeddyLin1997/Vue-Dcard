@@ -5,22 +5,22 @@ export const routes = [
     component: () => import("@/views/login")
   },
   {
-    path: "/user",
+    path: "/function/user",
     name: "user",
     component: () => import("@/views/function/user")
   },
   {
-    path: "/notify",
-    name: "notify",
-    component: () => import("@/views/function/notify")
+    path: "/function/e-mail",
+    name: "e-mail",
+    component: () => import("@/views/function/e-mail")
   },
   {
-    path: "/lottery",
+    path: "/function/lottery",
     name: "lottery",
     component: () => import("@/views/function/lottery")
   },
   {
-    path: "/new-post",
+    path: "/function/new-post",
     name: "new-post",
     component: () => import("@/views/function/new-post")
   },
