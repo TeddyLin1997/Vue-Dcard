@@ -23,7 +23,7 @@ import circleIcon from "@/components/circle-icon";
 import noDataSearch from "@/components/no-data-search";
 
 export default {
-  name: "wear",
+  name: "kanban",
 
   components: {
     kanbanTitle,
@@ -50,8 +50,13 @@ export default {
     }
   },
 
-  created() {
-    this.kanban = this.kanbanObject(this.$route.name);
+  watch: {
+    "$route.params": {
+      immediate: true,
+      handler(newVal) {
+        this.kanban = this.kanbanObject(newVal.kanban);
+      }
+    }
   }
 };
 </script>

@@ -38,7 +38,7 @@ new Vue({
       const userinfo = JSON.parse(window.localStorage.getItem("userInfo"));
       if (userinfo) this.setUserInfo(userinfo);
 
-      this.setKanbanList(KANBAN_LIST.featured.data);
+      this.setKanbanList(KANBAN_LIST.data);
       this.setTabList(TAB_LIST);
     }
   }

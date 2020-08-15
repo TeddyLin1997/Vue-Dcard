@@ -1,15 +1,22 @@
 <template lang="pug">
   .aside-menu
-    .kanban__group(v-for="kanban of kanbanList" :key="kanban.title")
-      .kanban__title {{ kanban.title }}
-      router-link.kanban__item(v-for="item of kanban.data" :key="item.code" :to="item.code")
-        circle-icon(:icon="item.icon" :icon-size="18" :color="item.fontColor" :background-color="item.color")
-        span.content {{ item.name }}
+    //- 預設看板
+    .kanban__group
+      .kanban__title {{ defaultList.title }}
+      router-link.kanban__item(v-for="kanban of defaultList.data" :key="kanban.code" :to="{ name: kanban.code }")
+        circle-icon(:icon="kanban.icon" :icon-size="18" :color="kanban.fontColor" :background-color="kanban.color")
+        span.content {{ kanban.name }}
+    //- 精選看板
+    .kanban__group
+      .kanban__title {{ kanbanList.title }}
+      router-link.kanban__item(v-for="kanban of kanbanList.data" :key="kanban.code" :to="{ name: 'kanban', params: { kanban: kanban.code } }")
+        circle-icon(:icon="kanban.icon" :icon-size="18" :color="kanban.fontColor" :background-color="kanban.color")
+        span.content {{ kanban.name }}
 </template>
 
 <script>
 import circleIcon from "@/components/circle-icon";
-import { KANBAN_LIST } from "@/config/site";
+import { DEFAULT_LIST, KANBAN_LIST } from "@/config/site";
 
 export default {
   name: "aside-menu",
@@ -21,7 +28,8 @@ export default {
   data() {
     return {
       // 預設看板
-      kanbanList: KANBAN_LIST
+      kanbanList: KANBAN_LIST,
+      defaultList: DEFAULT_LIST
     };
   }
 };

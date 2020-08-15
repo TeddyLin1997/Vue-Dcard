@@ -39,6 +39,21 @@ export default {
     }
   },
 
+  watch: {
+    icon: {
+      deep: true,
+      handler() {
+        this.$refs.circle.style.width = this.borderSize + "px";
+        this.$refs.circle.style.height = this.borderSize + "px";
+        this.$refs.circle.style.lineHeight = this.borderSize + "px";
+        this.$refs.circle.style.backgroundColor = this.backgroundColor;
+
+        this.$refs.icon.style.fontSize = this.iconSize + "px";
+        this.$refs.icon.style.color = this.color;
+      }
+    }
+  },
+
   mounted() {
     this.$refs.circle.style.width = this.borderSize + "px";
     this.$refs.circle.style.height = this.borderSize + "px";
