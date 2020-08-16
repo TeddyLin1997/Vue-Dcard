@@ -1,7 +1,7 @@
 <template lang="pug">
   .page
     main.layout__main
-      asideMenu.aside
+      asideMenu
       .router__view
         router-view
       .facebook

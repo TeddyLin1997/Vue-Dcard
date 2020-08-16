@@ -1,6 +1,6 @@
 <template lang="pug">
 #no-data-search
-  img(src="./search.png")
+  img(src="./search.png" draggable="false")
   div 暫無相關文章
 </template>
 

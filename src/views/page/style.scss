@@ -11,10 +11,7 @@
   @include flex(row, space-between, flex-start);
   margin: 0 auto;
   max-width: 1280px;
-}
-
-.aside {
-  min-width: 200px;
+  // overflow: hidden;
 }
 
 .router__view {

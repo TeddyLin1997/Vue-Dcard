@@ -37,6 +37,13 @@ export default {
     }
   },
 
+  watch: {
+    visible(value) {
+      if (value) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "auto";
+    }
+  },
+
   mounted() {
     this.initAttr();
   },
