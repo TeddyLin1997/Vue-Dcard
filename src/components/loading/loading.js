@@ -3,9 +3,12 @@ import Vue from "vue";
 const loadingConstructor = Vue.extend(require("./index.vue").default);
 
 const loading = {
-  bind(el, binding) {
+  async bind(el, binding) {
     const data = { isLoading: !!binding.value };
     const loadingInstance = new loadingConstructor({ data: data });
+
+    // 等待渲染dom完成 避免錯誤
+    await Vue.nextTick();
     el.style.position = "relative";
     el.loading = loadingInstance.$mount();
     el.appendChild(el.loading.$el);
