@@ -1,5 +1,5 @@
 <template lang="pug">
-  #wear
+  #kanban(v-loading="isLoading")
     header
       kanbanTitle
         circle-icon(:icon="kanban.icon" :color="kanban.fontColor" :background-color="kanban.color" :icon-size="20" :border-size="40")
@@ -34,6 +34,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       kanban: {},
       articleList: []
     };
@@ -62,7 +63,9 @@ export default {
 
   methods: {
     async getArticleList(path) {
+      this.isLoading = true;
       this.articleList = await this.$database.getArticle(path);
+      this.isLoading = false;
     }
   }
 };

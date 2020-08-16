@@ -56,11 +56,6 @@ export const routes = [
         component: () => import("@/views/page/hot")
       },
       {
-        path: "mit",
-        name: "mit",
-        component: () => import("@/views/page/mit")
-      },
-      {
         path: "novice",
         name: "novice",
         component: () => import("@/views/page/novice")

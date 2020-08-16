@@ -5,6 +5,7 @@ import { mapActions } from "vuex";
 
 import App from "./views/App.vue";
 import message from "@/components/message-box/message.js";
+import loading from "@/components/loading/loading.js";
 import { KANBAN_LIST, TAB_LIST } from "@/config/site";
 
 import { database, auth } from "./config/firebase";
@@ -21,6 +22,8 @@ Vue.prototype.$database = database;
 Vue.prototype.$auth = auth;
 
 Vue.component("awesome-icon", FontAwesomeIcon);
+
+Vue.directive("loading", loading);
 
 new Vue({
   router,
