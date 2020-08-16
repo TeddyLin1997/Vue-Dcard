@@ -16,6 +16,11 @@ const loading = {
 
   update(el, binding) {
     el.loading.isLoading = binding.value;
+  },
+
+  unbind(el) {
+    el.removeChild(el.loading.$el);
+    el.loading.$destroy();
   }
 };
 
