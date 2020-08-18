@@ -1,7 +1,8 @@
 <template lang="pug">
   #app
     headerBar
-    router-view
+    transition(name="router")
+      router-view
 
 </template>
 

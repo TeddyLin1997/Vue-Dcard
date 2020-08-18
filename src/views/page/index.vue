@@ -3,7 +3,8 @@
     main.layout__main
       asideMenu
       .router__view
-        router-view
+        transition(name="router")
+          router-view
       .facebook
         iframe(src="//www.facebook.com/plugins/likebox.php?href=https://www.facebook.com%2Fdcard.tw&width=280&height=220&show_facepile=false")
 
