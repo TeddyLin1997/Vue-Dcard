@@ -1,6 +1,6 @@
 <template lang="pug">
   .function-bar
-    div(v-for="item of functionList" :key="item.name" @click="getEvent(item.id)")
+    div(v-for="item of functionList" :key="item.id" :class="{ 'active' : isActive(item.id) }" @click="getEvent(item.id)")
       awesome-icon.icon(:icon="item.icon")
       template(v-if="item.id === 'dropdown'")
         transition(name="dropdown")
@@ -25,17 +25,24 @@ export default {
   data() {
     return {
       functionList: FUNCTION_LIST,
-      openDropDown: false
+      openDropDown: false,
+      active: null
     };
   },
 
   methods: {
     ...mapActions(["setUserInfo"]),
 
+    isActive(action) {
+      return this.active === action;
+    },
+
     getEvent(action) {
       if (action === "dropdown")
         return (this.openDropDown = !this.openDropDown);
       if (action === "notify") return;
+
+      this.active = action;
 
       this.$router.push({ name: action }).catch(() => {});
     },
@@ -53,6 +60,14 @@ export default {
 .function-bar {
   @include flex(row, space-between, center);
   min-width: 280px;
+
+  & > div {
+    @include flex();
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+  }
 }
 
 .icon {
@@ -69,5 +84,10 @@ export default {
 .dropdown-enter-active,
 .dropdown-leave-active {
   transition: 0.2s;
+}
+
+.active {
+  background-color: $darkBlue;
+  transition: all 0.5s;
 }
 </style>
