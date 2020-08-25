@@ -58,6 +58,14 @@ export const database = {
       .ref(path)
       .set(value)
       .catch(err => err);
+  },
+
+  getLength: path => {
+    return firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot?.val()?.length ?? 0);
   }
 };
 

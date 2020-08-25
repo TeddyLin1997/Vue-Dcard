@@ -123,7 +123,10 @@ export default {
           name: data.name,
           school: data.school,
           email: user.email,
-          uid: user.uid
+          uid: user.uid,
+          article: [],
+          kanban: [],
+          post: []
         };
         this.setUserInfo(userInfo);
       }

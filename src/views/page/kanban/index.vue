@@ -1,7 +1,7 @@
 <template lang="pug">
   #kanban(v-loading="isLoading")
     header
-      kanbanTitle
+      kanbanTitle(:code="kanban.code")
         circle-icon(:icon="kanban.icon" :color="kanban.fontColor" :background-color="kanban.color" :icon-size="20" :border-size="40")
         span {{ kanban.name }}
       kanban-tabs(:data="tabList" :fadeOut="true")
