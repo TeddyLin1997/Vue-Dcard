@@ -4,31 +4,50 @@
       span 追蹤的看板
 
     body
-      .no-collect(v-if="haveCollect")
+      .no-collect(v-if="noHaveCollect")
         img(src="@/assets/images/collect.png")
         span 沒有收藏的看板
       .section(v-else)
+        kanban-title(v-for="kanban of dataList" :key="kanban.code" :kanban="kanban" border)
+
 </template>
 
 <script>
+import { mapState } from "vuex";
+import kanbanTitle from "@/components/kanban-title";
+
 export default {
   name: "user-collect",
 
-  data() {
-    return {
-      data: []
-    };
+  components: {
+    kanbanTitle
   },
 
   computed: {
-    haveCollect() {
-      return this.data.length === 0;
+    ...mapState(["userInfo", "kanbanList"]),
+
+    noHaveCollect() {
+      return this.userInfo.kanban.length === 0;
+    },
+
+    dataList() {
+      const result = [];
+      this.userInfo.kanban.forEach(kanban => {
+        result.push(this.kanbanList.find(item => item.code === kanban));
+      });
+      return result;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.section {
+  width: 100%;
+  max-height: 560px;
+  overflow: auto;
+}
+
 #user-collect,
 .no-collect,
 body {
@@ -47,7 +66,6 @@ header {
 
 body {
   width: 100%;
-  min-height: 600px;
 }
 
 .no-collect {

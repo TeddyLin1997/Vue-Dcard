@@ -1,28 +1,35 @@
 <template lang="pug">
-.kanban__header__title
+.kanban__header__title(:class="{ 'border' : border }")
   .kanban__name
-    slot
+    circle-icon(:icon="kanban.icon" :icon-size="20" :border-size="40" :color="kanban.fontColor" :background-color="kanban.color")
+    span {{ kanban.name }}
   .kanban__follow
-    button.followed(v-if="hasFollowed" @click="changeKanban('remove', code)") 追蹤中
-    button(v-else @click="changeKanban('follow', code)") 追蹤
+    button.followed(v-if="hasFollowed" @click="changeKanban('remove', kanban.code)") 追蹤中
+    button(v-else @click="changeKanban('follow', kanban.code)") 追蹤
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import { deepCopy } from "@/helper";
+import circleIcon from "@/components/circle-icon";
 
 export default {
   name: "kanabn-title",
 
+  components: {
+    circleIcon
+  },
+
   props: {
-    code: String
+    kanban: Object,
+    border: Boolean
   },
 
   computed: {
     ...mapState(["userInfo"]),
 
     hasFollowed() {
-      return this.userInfo.kanban.includes(this.code);
+      return this.userInfo.kanban.includes(this.kanban.code);
     }
   },
 

@@ -19,6 +19,7 @@
   border-radius: 10px;
   border: none;
   background-color: #3397cf;
+  outline: none;
   &:hover {
     opacity: .8;
   }
@@ -26,4 +27,8 @@
 
 .followed {
   background-color: #999 !important;
+}
+
+.border {
+  border-bottom: 1px solid #999;
 }

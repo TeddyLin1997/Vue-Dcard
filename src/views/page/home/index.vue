@@ -9,7 +9,6 @@
 
 <script>
 import { mapState } from "vuex";
-import kanbanTitle from "@/components/kanban-title";
 import kanbanTabs from "@/components/kanban-tabs";
 import articleItem from "@/components/article-item";
 import noDataSearch from "@/components/no-data-search";
@@ -19,7 +18,6 @@ export default {
 
   components: {
     kanbanTabs,
-    kanbanTitle,
     articleItem,
     noDataSearch
   },

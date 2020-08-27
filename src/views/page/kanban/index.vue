@@ -1,11 +1,8 @@
 <template lang="pug">
   #kanban(v-loading="isLoading")
     header
-      kanbanTitle(:code="kanban.code")
-        circle-icon(:icon="kanban.icon" :color="kanban.fontColor" :background-color="kanban.color" :icon-size="20" :border-size="40")
-        span {{ kanban.name }}
+      kanbanTitle(:kanban="kanban")
       kanban-tabs(:data="tabList" :fadeOut="true")
-
     body
       article-item(v-if="haveArticle" :data="articleList")
       no-data-search(v-else)
@@ -18,7 +15,6 @@ import { mapState, mapGetters } from "vuex";
 import kanbanTabs from "@/components/kanban-tabs";
 import kanbanTitle from "@/components/kanban-title";
 import articleItem from "@/components/article-item";
-import circleIcon from "@/components/circle-icon";
 import noDataSearch from "@/components/no-data-search";
 
 export default {
@@ -28,7 +24,6 @@ export default {
     kanbanTitle,
     kanbanTabs,
     articleItem,
-    circleIcon,
     noDataSearch
   },
 

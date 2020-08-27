@@ -205,13 +205,13 @@ export const USER_NAVIGATION_LIST = [
     color: "#00324e",
     fontColor: "#c84865"
   },
-  {
-    name: "我追蹤的卡稱",
-    icon: ["fas", "rss"],
-    code: "followid",
-    color: "#00324e",
-    fontColor: "#109faf"
-  },
+  // {
+  //   name: "我追蹤的卡稱",
+  //   icon: ["fas", "rss"],
+  //   code: "followid",
+  //   color: "#00324e",
+  //   fontColor: "#109faf"
+  // },
   {
     name: "我發表的文章",
     icon: ["fas", "pencil-alt"],
@@ -226,20 +226,20 @@ export const USER_NAVIGATION_LIST = [
     color: "#00324e",
     fontColor: "#b27716"
   },
-  {
-    name: "我的卡稱",
-    icon: ["fas", "id-badge"],
-    code: "id",
-    color: "#00324e",
-    fontColor: "#3397cf"
-  },
-  {
-    name: "我的卡友",
-    icon: ["fas", "user-friends"],
-    code: "friend",
-    color: "#00324e",
-    fontColor: "#3397cf"
-  },
+  // {
+  //   name: "我的卡稱",
+  //   icon: ["fas", "id-badge"],
+  //   code: "id",
+  //   color: "#00324e",
+  //   fontColor: "#3397cf"
+  // },
+  // {
+  //   name: "我的卡友",
+  //   icon: ["fas", "user-friends"],
+  //   code: "friend",
+  //   color: "#00324e",
+  //   fontColor: "#3397cf"
+  // },
   {
     name: "設定",
     icon: ["fas", "cog"],
