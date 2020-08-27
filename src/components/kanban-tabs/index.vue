@@ -75,7 +75,7 @@ export default {
 .gradient {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
   width: 40%;
   height: 100%;
   background: linear-gradient(
