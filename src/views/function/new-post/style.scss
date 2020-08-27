@@ -172,3 +172,8 @@
     text-align: right; 
   }
 }
+
+.disable {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

@@ -15,8 +15,8 @@
       .content
         textarea(v-model="postForm.content" type="textarea" placeholder="內文")
       .button
-        button 取消
-        button(@click="postNewArticle()") 下一步
+        button(@click="cancel()") 取消
+        button(:class="{ 'disable': disable }" @click="postNewArticle()") 發表
     
     //- 選擇狀態按鈕
     dialog-page(:visible.sync="isOpenDialog")
@@ -80,6 +80,15 @@ export default {
   computed: {
     ...mapState(["kanbanList", "userInfo"]),
 
+    disable() {
+      if (this.postForm.kanbanName === "點此選擇發文看板") return true;
+      if (this.postForm.kanbanCode === "") return true;
+      if (this.postForm.name === "請選擇發文身份") return true;
+      if (this.postForm.title === "") return true;
+      if (this.postForm.content === "") return true;
+      return false;
+    },
+
     isVisible() {
       return {
         kanban: this.activeSelect === "kanban",
@@ -113,11 +122,13 @@ export default {
   },
 
   methods: {
+    // 選擇發文資訊
     selectPostInfo(value) {
       this.isOpenDialog = true;
       this.activeSelect = value;
     },
 
+    // dialog選擇版
     handleSelect(item) {
       if (this.isVisible.user) this.postForm.name = item.name;
       if (this.isVisible.kanban) {
@@ -132,7 +143,13 @@ export default {
       this.isOpenRule = !this.isOpenRule;
     },
 
+    cancel() {
+      this.$router.go(-1);
+    },
+
     async postNewArticle() {
+      if (this.disable) return;
+
       const path = `data/${this.postForm.kanbanCode}`;
       const value = {
         name: this.postForm.name,
@@ -146,6 +163,7 @@ export default {
         react: 0
       };
 
+      this.$database.setArticle("data/home", value);
       const result = await this.$database.setArticle(path, value);
       if (result.status) {
         this.$message("發表成功");
