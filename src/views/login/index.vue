@@ -1,5 +1,5 @@
 <template lang="pug">
-  .login
+  .login(v-loading="loading")
     .title
       h1 註冊/登入
 
@@ -15,7 +15,7 @@
         span &nbsp {{ page.label }}
     
     //- 輸入框
-    .window(ref="window")
+    .window
       div(v-show="activePage.register")
         span 名稱
         input(v-model="userForm[active].name" type="text" placeholder="請輸入名稱")
@@ -39,6 +39,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       active: "login",
       pageList: [
         { id: 0, label: "登入", code: "login", icon: ["fas", "user-friends"] },
@@ -75,9 +76,10 @@ export default {
 
     // 表單送出按鈕
     async submit(code) {
+      this.loading = true;
       // 登入
       if (code === "login") {
-        this.$auth
+        await this.$auth
           .signInWithEmailAndPassword(
             this.userForm.login.account,
             this.userForm.login.password
@@ -89,14 +91,20 @@ export default {
       }
       // 註冊
       if (code === "register") {
-        this.$auth
+        await this.$auth
           .createUserWithEmailAndPassword(
             this.userForm.register.account,
             this.userForm.register.password
           )
           .then(res => {
             const path = `user/${res.user.uid}`;
-            this.$database.setUser(path, this.userForm.register);
+            const submitUserInfo = {
+              ...this.userForm.register,
+              collect: [],
+              kanban: [],
+              post: []
+            };
+            this.$database.setUser(path, submitUserInfo);
           })
           .then(() => {
             this.$message("成功");
@@ -104,6 +112,7 @@ export default {
           })
           .catch(err => this.$message(err.message, "error"));
       }
+      this.loading = false;
     },
 
     // 切換頁
@@ -117,17 +126,7 @@ export default {
 
       if (user) {
         const path = `user/${user.uid}`;
-        const data = await this.$database.getUser(path);
-        const userInfo = {
-          account: data.account,
-          name: data.name,
-          school: data.school,
-          email: user.email,
-          uid: user.uid,
-          article: [],
-          kanban: [],
-          post: []
-        };
+        const userInfo = await this.$database.getUser(path);
         this.setUserInfo(userInfo);
       }
     }
