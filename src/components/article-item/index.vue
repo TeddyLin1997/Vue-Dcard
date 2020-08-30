@@ -81,6 +81,7 @@ export default {
   watch: {
     openDialog(value) {
       if (value === false) this.articleData = null;
+      if (value === false) this.openReaction = false;
     }
   },
 
