@@ -34,7 +34,9 @@ export default {
     visible: {
       type: Boolean,
       default: false
-    }
+    },
+
+    radius: Boolean
   },
 
   watch: {
@@ -61,6 +63,8 @@ export default {
       Object.keys(customStyle).forEach(key => {
         this.$refs.dialog.style[key] = customStyle[key];
       });
+
+      if (this.radius) this.$refs.dialog.style["borderRadius"] = "1rem";
     },
 
     // 與外部控制開關參數同步

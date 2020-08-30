@@ -19,7 +19,7 @@
         button(:class="{ 'disable': disable }" @click="postNewArticle()") 發表
     
     //- 選擇狀態按鈕
-    dialog-page(:visible.sync="isOpenDialog")
+    dialog-page(:visible.sync="isOpenDialog" radius)
       .select
         h1 請選擇
         .list
@@ -153,7 +153,6 @@ export default {
       const path = `data/${this.postForm.kanbanCode}`;
       const value = {
         name: this.postForm.name,
-        sex: 1,
         time: getNowDateTime(),
         kanban: this.postForm.kanbanName,
         title: this.postForm.title,
