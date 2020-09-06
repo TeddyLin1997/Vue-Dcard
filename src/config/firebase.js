@@ -16,6 +16,24 @@ firebase.initializeApp(firebaseConfig);
 
 // 擴充database方法
 export const database = {
+  get: async path => {
+    const result = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val())
+      .catch(err => err);
+    return result;
+  },
+
+  set: (path, value) => {
+    return firebase
+      .database()
+      .ref(path)
+      .set(value)
+      .catch(err => err);
+  },
+
   getArticle: async path => {
     const result = await firebase
       .database()

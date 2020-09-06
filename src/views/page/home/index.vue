@@ -3,7 +3,7 @@
     header
       kanban-tabs(:data="tabList" :fadeOut="true")
     body
-      article-item(v-if="haveArticle" :data="articleList" @update="getArticle()")
+      article-item(v-if="haveArticle" :data="articleList")
       no-data-search(v-else)
 </template>
 

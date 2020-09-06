@@ -1,7 +1,7 @@
 <template lang="pug">
 section
   //- 文章列表
-  .article-item(v-for="article of data" :key="article.id" @click="getArticle(article)")
+  .article-item(v-for="article of data" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
     .wrapper
       header
         span {{ article.name }} 、
@@ -67,8 +67,7 @@ export default {
   props: {
     data: {
       type: Array,
-      required: true,
-      KANBAN_LIST: KANBAN_LIST
+      required: true
     }
   },
 
@@ -78,7 +77,8 @@ export default {
       openDialog: false,
       openReaction: false,
       articleData: null,
-      submitData: {}
+      submitData: {},
+      KANBAN_LIST
     };
   },
 

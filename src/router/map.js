@@ -36,6 +36,11 @@ export const routes = [
         component: () => import("@/views/page/home")
       },
       {
+        path: "search",
+        name: "search",
+        component: () => import("@/views/page/search")
+      },
+      {
         path: "all",
         name: "all",
         component: () => import("@/views/page/all")
