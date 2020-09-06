@@ -1,6 +1,6 @@
 <template lang="pug">
   #search(v-loading="loading")
-    div {{ keyword }}
+    .title 搜尋： {{ keyword }}
     articleItem(v-if="haveData" :data="searchResult")
     no-data-search(v-else)
     
@@ -10,7 +10,6 @@
 <script>
 import articleItem from "@/components/article-item";
 import noDataSearch from "@/components/no-data-search";
-import { sleep } from "@/helper";
 
 export default {
   name: "search",
@@ -36,7 +35,7 @@ export default {
   },
 
   created() {
-    this.init(this.keyword);
+    this.getResult(this.keyword);
   },
 
   watch: {
@@ -50,21 +49,21 @@ export default {
 
     keyword(newVal) {
       this.initList();
-      this.init(newVal);
+      this.getResult(newVal);
     }
   },
 
   methods: {
-    async init(keyword) {
-      this.loading = true;
-      await this.getAllData();
-      await this.searchArticle(keyword);
-      this.loading = false;
-    },
-
     initList() {
       this.searchResult = [];
       this.allDataList = [];
+    },
+
+    async getResult(keyword) {
+      this.loading = true;
+      await this.getAllData();
+      await this.searchAllData(keyword);
+      this.loading = false;
     },
 
     async getAllData() {
@@ -75,8 +74,8 @@ export default {
       });
     },
 
-    async searchArticle(keyword) {
-      await sleep(3000);
+    async searchAllData(keyword) {
+      if (keyword === "") return;
       const match = new RegExp(keyword, "i");
       this.searchResult = this.allDataList.filter(item => {
         return item.title.match(match) || item.content.match(match);
@@ -86,4 +85,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.title {
+  padding: 1rem 1.8rem;
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: left;
+}
+</style>
