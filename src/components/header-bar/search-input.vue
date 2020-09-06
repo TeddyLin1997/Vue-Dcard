@@ -82,5 +82,8 @@ input::placeholder {
   border-radius: 0 2px 2px 0;
   background-color: $skyBlue;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>
