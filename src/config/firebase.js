@@ -36,6 +36,27 @@ export const database = {
       .catch(err => err);
   },
 
+  // 取得使用者資料
+  getUser: uid => {
+    const path = `user/${uid}`;
+    return firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val())
+      .catch(err => err);
+  },
+
+  // 設定使用者資料
+  setUser: (uid, value) => {
+    const path = `user/${uid}`;
+    return firebase
+      .database()
+      .ref(path)
+      .set(value)
+      .catch(err => err);
+  },
+
   // 取得看板文章
   getArticle: async kanbanName => {
     const path = `data/${kanbanName}`;
@@ -94,24 +115,33 @@ export const database = {
       .catch(err => err);
   },
 
-  // 取得使用者資料
-  getUser: uid => {
-    const path = `user/${uid}`;
-    return firebase
+  addMood: async (kanbanName, id) => {
+    const path = `data/${kanbanName}/${id}/mood`;
+    const value = await firebase
       .database()
       .ref(path)
       .once("value")
-      .then(snapshot => snapshot.val())
+      .then(snapshot => snapshot.val());
+
+    return firebase.database
+      .ref(path)
+      .set(value + 1)
+      .then(() => true)
       .catch(err => err);
   },
 
-  // 設定使用者資料
-  setUser: (uid, value) => {
-    const path = `user/${uid}`;
-    return firebase
+  subMood: async (kanbanName, id) => {
+    const path = `data/${kanbanName}/${id}/mood`;
+    const value = await firebase
       .database()
       .ref(path)
-      .set(value)
+      .once("value")
+      .then(snapshot => snapshot.val());
+
+    return firebase.database
+      .ref(path)
+      .set(value - 1)
+      .then(() => true)
       .catch(err => err);
   }
 };
