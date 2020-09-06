@@ -40,7 +40,7 @@ section
         awesome-icon(:icon="['fas', 'times']" @click="close()")
       .reaction
         awesome-icon.user(:icon="['fas', 'user']")
-        span(v-show="openReaction") {{ userInfo.name }}
+        span {{ userInfo.name }}
         .react(:style="{ 'visibility' : visibility }" @click="expandReaction()") 回應...
         awesome-icon.heart(:icon="['fas', 'heart']" @click="handleClickIcon('heart', $event)")
         awesome-icon.bookmark(:icon="['fas', 'bookmark']" @click="handleClickIcon('bookmark', $event)")

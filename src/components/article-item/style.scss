@@ -141,9 +141,11 @@
 .reaction {
   @include flex(row, space-between);
   line-height: 50px;
-
+  span {
+    font-weight: bold;
+  }
   .react {
-    width: 450px;
+    width: 400px;
     height: 50px;
     text-align: left;
     cursor: text;
