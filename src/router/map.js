@@ -26,11 +26,11 @@ export const routes = [
   },
   {
     path: "/",
-    // 如果使用 to={name:page }，不會出現 => 預設子路由
-    // name: "page",
+    // 如果使用 name: "page" 使用時 to={ name:page }，不會出現 => 預設子路由
     component: () => import("@/views/page"),
     children: [
       {
+        // 不填page為預設
         path: "",
         name: "home",
         component: () => import("@/views/page/home")
@@ -39,26 +39,6 @@ export const routes = [
         path: "all",
         name: "all",
         component: () => import("@/views/page/all")
-      },
-      {
-        path: "game",
-        name: "game",
-        component: () => import("@/views/page/game")
-      },
-      {
-        path: "goods",
-        name: "goods",
-        component: () => import("@/views/page/goods")
-      },
-      {
-        path: "hot",
-        name: "hot",
-        component: () => import("@/views/page/hot")
-      },
-      {
-        path: "novice",
-        name: "novice",
-        component: () => import("@/views/page/novice")
       },
       {
         path: "/kanban/:kanban",
