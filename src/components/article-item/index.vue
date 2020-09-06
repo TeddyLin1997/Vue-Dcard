@@ -134,12 +134,12 @@ export default {
     },
 
     async postReaction(data, submitData) {
-      const path = `data/${this.formatter(data.kanban)}/${data.id}/reaction`;
+      const kanbanName = this.formatter(data.kanban);
       if (this.articleData.reaction === undefined)
         this.articleData.reaction = [submitData];
       else this.articleData.reaction.push(submitData);
 
-      await this.$database.setArticle(path, submitData);
+      await this.$database.setReaction(kanbanName, data.id, submitData);
       this.initSubmit();
     },
 

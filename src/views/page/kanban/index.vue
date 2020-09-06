@@ -51,17 +51,16 @@ export default {
       immediate: true,
       handler(newVal) {
         this.currKanban = newVal.kanban;
-        const path = `data/${this.currKanban}`;
         this.kanban = this.kanbanObject(this.currKanban);
-        this.getArticle(path);
+        this.getArticle(this.currKanban);
       }
     }
   },
 
   methods: {
-    async getArticle(path) {
+    async getArticle(kanban) {
       this.isLoading = true;
-      this.articleList = await this.$database.getArticle(path);
+      this.articleList = await this.$database.getArticle(kanban);
       this.isLoading = false;
     }
   }

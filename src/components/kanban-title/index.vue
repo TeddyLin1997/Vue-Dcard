@@ -37,7 +37,6 @@ export default {
     ...mapActions(["setUserInfo"]),
 
     changeKanban(action, code) {
-      const path = `user/${this.userInfo.uid}`;
       const submitData = deepCopy(this.userInfo);
 
       if (action === "follow") submitData.kanban.push(code);
@@ -46,8 +45,9 @@ export default {
         submitData.kanban.splice(index, 1);
       }
 
+      // 設置本地vuex、遠端資料庫
       this.setUserInfo(submitData);
-      this.$database.setUser(path, this.userInfo);
+      this.$database.setUser(submitData.uid, this.userInfo);
     }
   }
 };

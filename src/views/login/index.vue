@@ -97,14 +97,13 @@ export default {
             this.userForm.register.password
           )
           .then(res => {
-            const path = `user/${res.user.uid}`;
             const submitUserInfo = {
               ...this.userForm.register,
               collect: [],
               kanban: [],
               post: []
             };
-            this.$database.setUser(path, submitUserInfo);
+            this.$database.setUser(res.user.uid, submitUserInfo);
           })
           .then(() => {
             this.$message("成功");
@@ -125,8 +124,7 @@ export default {
       const user = this.$auth.currentUser;
 
       if (user) {
-        const path = `user/${user.uid}`;
-        const userInfo = await this.$database.getUser(path);
+        const userInfo = await this.$database.getUser(user.uid);
         this.setUserInfo(userInfo);
       }
     }

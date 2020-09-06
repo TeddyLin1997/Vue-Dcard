@@ -16,6 +16,7 @@ firebase.initializeApp(firebaseConfig);
 
 // 擴充database方法
 export const database = {
+  // 基本取得
   get: async path => {
     const result = await firebase
       .database()
@@ -26,6 +27,7 @@ export const database = {
     return result;
   },
 
+  // 基本設定
   set: (path, value) => {
     return firebase
       .database()
@@ -34,7 +36,9 @@ export const database = {
       .catch(err => err);
   },
 
-  getArticle: async path => {
+  // 取得看板文章
+  getArticle: async kanbanName => {
+    const path = `data/${kanbanName}`;
     const result = await firebase
       .database()
       .ref(path)
@@ -44,7 +48,9 @@ export const database = {
     return result ? result.reverse() : [];
   },
 
-  setArticle: async (path, value) => {
+  // 發表文章
+  setArticle: async (kanbanName, value) => {
+    const path = `data/${kanbanName}`;
     const id = await firebase
       .database()
       .ref(path)
@@ -61,7 +67,36 @@ export const database = {
       .catch(err => err);
   },
 
-  getUser: path => {
+  // 文章留言
+  setReaction: async (kanbanName, articleId, value) => {
+    const path = `data/${kanbanName}/${articleId}/reaction`;
+    const react = `data/${kanbanName}/${articleId}/react`;
+    const id = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot?.val()?.length ?? 0);
+
+    await firebase
+      .database()
+      .ref(`${path}/${id}`)
+      .set({ ...value, id: id })
+      .then(() => {
+        return { id: id, status: true };
+      })
+      .catch(err => err);
+
+    return firebase
+      .database()
+      .ref(react)
+      .set(id + 1)
+      .then(() => true)
+      .catch(err => err);
+  },
+
+  // 取得使用者資料
+  getUser: uid => {
+    const path = `user/${uid}`;
     return firebase
       .database()
       .ref(path)
@@ -70,20 +105,14 @@ export const database = {
       .catch(err => err);
   },
 
-  setUser: (path, value) => {
+  // 設定使用者資料
+  setUser: (uid, value) => {
+    const path = `user/${uid}`;
     return firebase
       .database()
       .ref(path)
       .set(value)
       .catch(err => err);
-  },
-
-  getLength: path => {
-    return firebase
-      .database()
-      .ref(path)
-      .once("value")
-      .then(snapshot => snapshot?.val()?.length ?? 0);
   }
 };
 

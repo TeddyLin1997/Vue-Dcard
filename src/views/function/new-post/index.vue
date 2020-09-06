@@ -153,7 +153,7 @@ export default {
 
       if (this.disable) return;
 
-      const path = `data/${this.postForm.kanbanCode}`;
+      const kanbanName = this.postForm.kanbanCode;
       const value = {
         name: this.postForm.name,
         time: getNowDateTime(),
@@ -172,8 +172,8 @@ export default {
       };
 
       const result = await Promise.all([
-        this.$database.setArticle("data/home", homeValue),
-        this.$database.setArticle(path, value)
+        this.$database.setArticle("home", homeValue),
+        this.$database.setArticle(kanbanName, value)
       ]);
 
       if (result.every(item => item.status === true)) {

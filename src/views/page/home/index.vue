@@ -44,7 +44,7 @@ export default {
   methods: {
     async getArticle() {
       this.loading = true;
-      this.articleList = await this.$database.getArticle("data/home");
+      this.articleList = await this.$database.getArticle("home");
       this.loading = false;
     }
   }
