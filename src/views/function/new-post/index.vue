@@ -161,8 +161,7 @@ export default {
         title: this.postForm.title,
         content: this.postForm.content,
         img: "picture",
-        mood: 0,
-        react: 0,
+        mood: [],
         reaction: []
       };
 

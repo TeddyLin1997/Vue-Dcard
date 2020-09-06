@@ -91,14 +91,13 @@ export const database = {
   // 文章留言
   setReaction: async (kanbanName, articleId, value) => {
     const path = `data/${kanbanName}/${articleId}/reaction`;
-    const react = `data/${kanbanName}/${articleId}/react`;
     const id = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot?.val()?.length ?? 0);
 
-    await firebase
+    return firebase
       .database()
       .ref(`${path}/${id}`)
       .set({ ...value, id: id })
@@ -106,41 +105,55 @@ export const database = {
         return { id: id, status: true };
       })
       .catch(err => err);
+  },
+
+  // 是否已經點擊心情
+  hasMood: async (kanbanName, id, user) => {
+    const path = `data/${kanbanName}/${id}/mood`;
+    const data = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val());
+
+    if (data === null) return false;
+    const target = data.find(item => item.name === user);
+    return target === undefined ? false : true;
+  },
+
+  // 點擊心情
+  addMood: async (kanbanName, id, user) => {
+    const path = `data/${kanbanName}/${id}/mood`;
+
+    const moodId = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot?.val()?.length ?? 0);
 
     return firebase
       .database()
-      .ref(react)
-      .set(id + 1)
-      .then(() => true)
+      .ref(`${path}/${moodId}`)
+      .set({ name: user, id: moodId })
+      .then(() => {
+        return { id: id, status: true };
+      })
       .catch(err => err);
   },
 
-  addMood: async (kanbanName, id) => {
+  // 收回心情
+  subMood: async (kanbanName, id, user) => {
     const path = `data/${kanbanName}/${id}/mood`;
-    const value = await firebase
+    const data = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val());
-
-    return firebase.database
-      .ref(path)
-      .set(value + 1)
-      .then(() => true)
-      .catch(err => err);
-  },
-
-  subMood: async (kanbanName, id) => {
-    const path = `data/${kanbanName}/${id}/mood`;
-    const value = await firebase
+    const findObj = data.find(item => item.name === user);
+    return firebase
       .database()
-      .ref(path)
-      .once("value")
-      .then(snapshot => snapshot.val());
-
-    return firebase.database
-      .ref(path)
-      .set(value - 1)
+      .ref(`${path}/${findObj.id}`)
+      .remove()
       .then(() => true)
       .catch(err => err);
   }

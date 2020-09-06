@@ -43,7 +43,19 @@
     @include flex(row, space-between);
     width: 40%;
     * {
-      font-size: .8rem;
+      font-size: 1rem;
+      &:hover {
+        opacity: .8;
+      }
+    }
+    .mood {
+      color: #c84865;
+    }
+    .react {
+      color: #339af0;
+    }
+    .collect {
+      color: #ee7832;
     }
   }
 }
@@ -142,7 +154,11 @@
   @include flex(row, space-between);
   line-height: 50px;
   span {
+    width: 70px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .react {
     width: 400px;
@@ -150,27 +166,29 @@
     text-align: left;
     cursor: text;
   }
-}
 
-.user {
-  @include icon;
-  color: #38c7da;
-  cursor: auto;
-}
-
-.heart {
-  @include icon;
-  &:hover {
-    opacity: .8;
+  .user {
+    @include icon;
+    color: #38c7da;
+    cursor: auto;
+  }
+  
+  .mood {
+    @include icon;
+    &:hover {
+      opacity: .8;
+    }
+  }
+  
+  .bookmark {
+    @include icon;
+    &:hover {
+      opacity: .8;
+    }
   }
 }
 
-.bookmark {
-  @include icon;
-  &:hover {
-    opacity: .8;
-  }
-}
+
 
 .textarea {
   height: 180px;
