@@ -1,5 +1,5 @@
 <template lang="pug">
-  .new-post
+  .new-post(v-loading="loading")
     .wrapper
       h1 發表文章
       .kanban
@@ -19,7 +19,7 @@
         button(:class="{ 'disable': disable }" @click="postNewArticle()") 發表
     
     //- 選擇狀態按鈕
-    dialog-page(:visible.sync="isOpenDialog" radius)
+    dialog-page(:visible.sync="isOpenDialog" radius width="500px")
       .select
         h1 請選擇
         .list
@@ -30,7 +30,7 @@
               span {{ kanban.name }}
     
     //- 發文規則
-    dialog-page(:visible.sync="isOpenRule" width="600px")
+    dialog-page(:visible.sync="isOpenRule" radius width="600px")
       .rule
         h1 與狄卡的發文留言小約定
         p 一、禁止使用不雅字眼、中傷、歧視、挑釁或謾罵他人。
@@ -73,7 +73,8 @@ export default {
       },
       activeSelect: "kanban",
       isOpenDialog: false,
-      isOpenRule: false
+      isOpenRule: false,
+      loading: false
     };
   },
 
@@ -148,6 +149,8 @@ export default {
     },
 
     async postNewArticle() {
+      this.loading = true;
+
       if (this.disable) return;
 
       const path = `data/${this.postForm.kanbanCode}`;
@@ -159,18 +162,29 @@ export default {
         content: this.postForm.content,
         img: "picture",
         mood: 0,
-        react: 0
+        react: 0,
+        reaction: []
       };
 
-      this.$database.setArticle("data/home", value);
-      const result = await this.$database.setArticle(path, value);
-      if (result.status) {
+      const homeValue = {
+        ...value,
+        kanban: "home"
+      };
+
+      const result = await Promise.all([
+        this.$database.setArticle("data/home", homeValue),
+        this.$database.setArticle(path, value)
+      ]);
+
+      if (result.every(item => item.status === true)) {
         this.$message("發表成功");
         this.$router.push({
           name: "kanban",
           params: { kanban: this.postForm.kanbanCode, id: result.id }
         });
       } else this.$message("發表失敗", "error");
+
+      this.loading = false;
     }
   }
 };

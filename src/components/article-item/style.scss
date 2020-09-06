@@ -58,13 +58,17 @@
 }
 
 .detail {
+  overflow: auto;
+  height: calc(100vh - 50px);
+}
+
+.main {
   @include flex(column, flex-start, flex-start);
   padding: 4rem;
   width: 100%;
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   text-align: left;
   font-weight: bold;
-  overflow: auto;
   .name {
     height: 50px;
     font-size: 1.2rem;
@@ -92,6 +96,26 @@
 
   .content {
     margin-top: 2rem;
+  }
+}
+
+.comments {
+  padding: 0 4rem;
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.comments__item {
+  padding: .4rem 1rem;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  .react__name {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  .react__reaction {
+    display: inline-block;
   }
 }
 
@@ -135,14 +159,14 @@
 .heart {
   @include icon;
   &:hover {
-    color: #c84865;
+    opacity: .8;
   }
 }
 
 .bookmark {
   @include icon;
   &:hover {
-    color: #ee7832;
+    opacity: .8;
   }
 }
 

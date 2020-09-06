@@ -4,7 +4,7 @@
       kanbanTitle(:kanban="kanban")
       kanban-tabs(:data="tabList" :fadeOut="true")
     body
-      article-item(v-if="haveArticle" :data="articleList")
+      article-item(v-if="haveArticle" :data="articleList" @update="getArticle()")
       no-data-search(v-else)
       
     
@@ -31,7 +31,8 @@ export default {
     return {
       isLoading: false,
       kanban: {},
-      articleList: []
+      articleList: [],
+      currKanban: "home"
     };
   },
 
@@ -49,15 +50,16 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newVal) {
-        const path = `data/${newVal.kanban}`;
-        this.kanban = this.kanbanObject(newVal.kanban);
-        this.getArticleList(path);
+        this.currKanban = newVal.kanban;
+        const path = `data/${this.currKanban}`;
+        this.kanban = this.kanbanObject(this.currKanban);
+        this.getArticle(path);
       }
     }
   },
 
   methods: {
-    async getArticleList(path) {
+    async getArticle(path) {
       this.isLoading = true;
       this.articleList = await this.$database.getArticle(path);
       this.isLoading = false;

@@ -23,7 +23,7 @@ export const TAB_LIST = [
 
 // 預設看板
 export const DEFAULT_LIST = {
-  title: "主題看板",
+  title: "",
   data: [
     {
       name: "所有看板",
@@ -31,35 +31,35 @@ export const DEFAULT_LIST = {
       code: "all",
       color: "#006aa6",
       fontColor: "#fff"
-    },
-    {
-      name: "即時熱門看板",
-      icon: ["fas", "fire"],
-      code: "hot",
-      color: "#f4cf20",
-      fontColor: "#da0a29"
-    },
-    {
-      name: "好物研究室",
-      icon: ["fas", "store-alt"],
-      code: "goods",
-      color: "#f97c00",
-      fontColor: "#fff"
-    },
-    {
-      name: "遊戲專區",
-      icon: ["fas", "gamepad"],
-      code: "game",
-      color: "#00b8dc",
-      fontColor: "#333333"
-    },
-    {
-      name: "社會新鮮人熱門看版",
-      icon: ["fas", "briefcase"],
-      code: "novice",
-      color: "#7c4a2c",
-      fontColor: "#f9e6cc"
     }
+    // {
+    //   name: "即時熱門看板",
+    //   icon: ["fas", "fire"],
+    //   code: "hot",
+    //   color: "#f4cf20",
+    //   fontColor: "#da0a29"
+    // },
+    // {
+    //   name: "好物研究室",
+    //   icon: ["fas", "store-alt"],
+    //   code: "goods",
+    //   color: "#f97c00",
+    //   fontColor: "#fff"
+    // },
+    // {
+    //   name: "遊戲專區",
+    //   icon: ["fas", "gamepad"],
+    //   code: "game",
+    //   color: "#00b8dc",
+    //   fontColor: "#333333"
+    // },
+    // {
+    //   name: "社會新鮮人熱門看版",
+    //   icon: ["fas", "briefcase"],
+    //   code: "novice",
+    //   color: "#7c4a2c",
+    //   fontColor: "#f9e6cc"
+    // }
   ]
 };
 

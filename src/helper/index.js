@@ -11,3 +11,9 @@ export const getNowDateTime = () => {
     1}月${now.getDate()}日 ${now.getHours()}:${now.getMinutes()}`;
   return result;
 };
+
+export const sleep = timeout => {
+  return new Promise(resolve => {
+    setTimeout(resolve(), timeout);
+  });
+};

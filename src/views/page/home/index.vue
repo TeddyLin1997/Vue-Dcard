@@ -3,7 +3,7 @@
     header
       kanban-tabs(:data="tabList" :fadeOut="true")
     body
-      article-item(v-if="haveArticle" :data="articleList")
+      article-item(v-if="haveArticle" :data="articleList" @update="getArticle()")
       no-data-search(v-else)
 </template>
 
@@ -37,10 +37,16 @@ export default {
     }
   },
 
-  async created() {
-    this.loading = true;
-    this.articleList = await this.$database.getArticle("data/home");
-    this.loading = false;
+  created() {
+    this.getArticle();
+  },
+
+  methods: {
+    async getArticle() {
+      this.loading = true;
+      this.articleList = await this.$database.getArticle("data/home");
+      this.loading = false;
+    }
   }
 };
 </script>
