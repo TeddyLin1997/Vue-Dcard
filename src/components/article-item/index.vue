@@ -24,7 +24,7 @@ section
 
   //- 詳細內文
   dialog-page(:visible.sync="openDialog" min-width="720px" height="100vh")
-    .detail(v-if="openDialog"  v-loading="loading")
+    .detail(ref="detail" v-if="openDialog")
       .main
         .header 
           .name {{ articleData.name }} 
@@ -40,16 +40,16 @@ section
           .react__reaction {{ item.reaction }}
       
     .bottom(ref="reaction")
-      .close(v-show="openReaction")
-        awesome-icon(:icon="['fas', 'times']" @click="close()")
-      .reaction(v-loading="isLoadingDialog")
+      .close(v-show="openReaction" @click="closeReaction()")
+        awesome-icon(:icon="['fas', 'times']")
+      .reaction(v-loading="loading.reaction")
         awesome-icon.user(:icon="['fas', 'user']")
         span {{ userInfo.name }}
         .react(:style="{ 'visibility' : visibility }" @click="expandReaction()") 回應...
         awesome-icon.mood(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData)")
         awesome-icon.bookmark(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData)")
       .textarea(v-show="openReaction")
-        textarea(v-model="submitData.reaction" placeholder="回應...")
+        textarea(v-model="submitData.reaction" placeholder="回應..." @keyup.enter="handleEnterText")
         .submit
           button(@click="postReaction(articleData, submitData)") 送出
         
@@ -77,8 +77,9 @@ export default {
 
   data() {
     return {
-      loading: false,
-      isLoadingDialog: false,
+      loading: {
+        reaction: false
+      },
       hasMood: false,
       hasCollect: false,
       openDialog: false,
@@ -107,8 +108,6 @@ export default {
     },
 
     async articleData(value) {
-      this.loading = true;
-
       if (value === null) return;
       const kanbanName = this.formatter(value.kanban);
       this.hasMood = await this.$database.hasMood(
@@ -118,8 +117,6 @@ export default {
       );
       if (this.hasMood) this.$refs.mood.style.color = "#c84865";
       else this.$refs.mood.style.color = "";
-
-      this.loading = false;
     }
   },
 
@@ -145,7 +142,7 @@ export default {
     },
 
     async handkeClickMood(data) {
-      this.isLoadingDialog = true;
+      this.loading.reaction = true;
 
       const kanbanName = this.formatter(data.kanban);
       if (this.hasMood) {
@@ -174,27 +171,41 @@ export default {
       );
       this.$refs.mood.style.color = this.hasMood ? "#c84865" : "";
 
-      this.isLoadingDialog = false;
+      this.loading.reaction = false;
     },
 
     handkeClickCollect(data, event) {
-      this.isLoadingDialog = true;
       let color = event.target.style.color;
       event.target.style.color = color ? "" : "#ee7832";
     },
 
-    close() {
-      this.openReaction = false;
+    async handleEnterText(event) {
+      if (event.shiftKey) return;
+
+      await this.postReaction(this.articleData, this.submitData);
     },
 
     async postReaction(data, submitData) {
+      this.closeReaction();
+
       const kanbanName = this.formatter(data.kanban);
       if (this.articleData.reaction === undefined)
         this.articleData.reaction = [submitData];
       else this.articleData.reaction.push(submitData);
 
       await this.$database.setReaction(kanbanName, data.id, submitData);
+      this.rollInBottom();
       this.initSubmit();
+    },
+
+    closeReaction() {
+      this.openReaction = false;
+    },
+
+    // 滾至底部
+    rollInBottom() {
+      const detail = this.$refs.detail;
+      detail.scrollTo({ top: detail.scrollHeight, behavior: "smooth" });
     },
 
     formatter(value) {
