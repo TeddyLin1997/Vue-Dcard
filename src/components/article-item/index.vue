@@ -1,17 +1,14 @@
 <template lang="pug">
 section
   //- 文章列表
-  .article-item(v-for="article of data" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
+  article(v-for="article of data" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
     .wrapper
-      header
-        span {{ article.name }} 、
-        span {{ article.time }}
-      article
-        h3 {{ article.title }}
-        p {{ article.content }}
+      span {{ article.name }} 、 {{ article.time }}
+      h3 {{ article.title }}
+      p {{ article.content }}
       footer
         .mood
-          awesome-icon.icon(:icon="['fas', 'heart']")
+          awesome-icon(:icon="['fas', 'heart']")
           span &nbsp {{ article.mood ? article.mood.length : 0  }}
         .react
           awesome-icon(:icon="['fas', 'comment']")
@@ -26,30 +23,27 @@ section
   dialog-page(:visible.sync="openDialog" min-width="720px" height="100vh")
     .detail(ref="detail" v-if="openDialog")
       .main
-        .header 
-          .name {{ articleData.name }} 
-          .title {{ articleData.title }}
-        .sub__title
-          div {{ articleData.kanban }}
-          div {{ articleData.time }}
-        .content
-          p {{ articleData.content }}
-      .comments
-        .comments__item(v-for="item, index of articleData.reaction" :key="index")
-          .react__name {{ item.name }} :
-          .react__reaction {{ item.reaction }}
+        h1.username {{ articleData.name }} 
+        h1.title {{ articleData.title }}
+        .subtitle
+          span {{ articleData.kanban }}
+          span {{ articleData.time }}
+        p {{ articleData.content }}
+
+      .comments__item(v-for="item, index of articleData.reaction" :key="index")
+        span {{ item.name }} :
+        span {{ item.reaction }}
       
-    .bottom(ref="reaction")
-      .close(v-show="openReaction" @click="closeReaction()")
-        awesome-icon(:icon="['fas', 'times']")
+    .bottom
+      awesome-icon.close(v-show="openReaction" :icon="['fas', 'times']" @click="closeReaction()")
       .reaction(v-loading="loading.reaction")
         awesome-icon.user(:icon="['fas', 'user']")
         span {{ userInfo.name }}
         .react(:style="{ 'visibility' : visibility }" @click="expandReaction()") 回應...
-        awesome-icon.mood(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData)")
-        awesome-icon.bookmark(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData)")
-      .textarea(v-show="openReaction")
-        textarea(v-model="submitData.reaction" placeholder="回應..." @keyup.enter="handleEnterText")
+        awesome-icon.icon(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData)")
+        awesome-icon.icon(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData)")
+      template(v-if="openReaction")
+        textarea(ref="textarea" v-model="submitData.reaction" placeholder="回應..." @keyup.enter="postReaction(articleData, submitData, $event)")
         .submit
           button(@click="postReaction(articleData, submitData)") 送出
         
@@ -100,11 +94,10 @@ export default {
 
   watch: {
     openDialog(value) {
-      if (value === false) {
-        this.articleData = null;
-        this.openReaction = false;
-        this.submitData.reaction = "";
-      }
+      if (value) return;
+      this.articleData = null;
+      this.openReaction = false;
+      this.submitData.reaction = "";
     },
 
     async articleData(value) {
@@ -115,8 +108,8 @@ export default {
         value.id,
         this.userInfo.name
       );
-      if (this.hasMood) this.$refs.mood.style.color = "#c84865";
-      else this.$refs.mood.style.color = "";
+
+      this.$refs.mood.style.color = this.hasMood ? "#c84865" : "";
     }
   },
 
@@ -132,15 +125,13 @@ export default {
       };
     },
 
+    // 取得單筆文章內容
     getArticle(article) {
       this.openDialog = true;
       this.articleData = article;
     },
 
-    expandReaction() {
-      this.openReaction = true;
-    },
-
+    // 點擊心情
     async handkeClickMood(data) {
       this.loading.reaction = true;
 
@@ -174,32 +165,37 @@ export default {
       this.loading.reaction = false;
     },
 
+    // 點擊收藏
     handkeClickCollect(data, event) {
       let color = event.target.style.color;
       event.target.style.color = color ? "" : "#ee7832";
     },
 
-    async handleEnterText(event) {
-      if (event.shiftKey) return;
+    // 開啟留言框
+    async expandReaction() {
+      this.openReaction = true;
 
-      await this.postReaction(this.articleData, this.submitData);
+      await this.$nextTick();
+      this.$refs.textarea.focus();
     },
 
-    async postReaction(data, submitData) {
-      this.closeReaction();
+    // 關閉留言框
+    closeReaction() {
+      this.openReaction = false;
+    },
+
+    // 送出留言
+    async postReaction(data, submitData, event) {
+      if (event.shiftKey) return;
 
       const kanbanName = this.formatter(data.kanban);
-      if (this.articleData.reaction === undefined)
-        this.articleData.reaction = [submitData];
-      else this.articleData.reaction.push(submitData);
+      if (data.reaction === undefined) data.reaction = [submitData];
+      else data.reaction.push(submitData);
 
       await this.$database.setReaction(kanbanName, data.id, submitData);
       this.rollInBottom();
+      this.closeReaction();
       this.initSubmit();
-    },
-
-    closeReaction() {
-      this.openReaction = false;
     },
 
     // 滾至底部
@@ -208,6 +204,7 @@ export default {
       detail.scrollTo({ top: detail.scrollHeight, behavior: "smooth" });
     },
 
+    // other
     formatter(value) {
       let result = "home";
       let target = KANBAN_LIST.data.find(item => item.name === value);
