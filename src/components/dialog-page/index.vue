@@ -2,7 +2,7 @@
   .mask(v-show="visible" @click="changeVisible()")
     .dialog(ref="dialog" @click.stop)
       .close
-        awesome-icon.icon(:icon="['fas', 'times']" @click="changeVisible()")
+        awesome-icon(:icon="['fas', 'times']" @click="changeVisible()")
       slot
 </template>
 

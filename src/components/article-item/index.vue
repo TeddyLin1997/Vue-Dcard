@@ -23,8 +23,8 @@ section
       img(:src="`https://picsum.photos/200/200?random=${article.id}`")
 
   //- 詳細內文
-  dialog-page(:visible.sync="openDialog" min-width="720px" height="100vh" )
-    .detail(v-if="openDialog")
+  dialog-page(:visible.sync="openDialog" min-width="720px" height="100vh")
+    .detail(v-if="openDialog"  v-loading="loading")
       .main
         .header 
           .name {{ articleData.name }} 
@@ -34,7 +34,7 @@ section
           div {{ articleData.time }}
         .content
           p {{ articleData.content }}
-      .comments(v-loading="loading")
+      .comments
         .comments__item(v-for="item, index of articleData.reaction" :key="index")
           .react__name {{ item.name }} :
           .react__reaction {{ item.reaction }}
@@ -107,8 +107,9 @@ export default {
     },
 
     async articleData(value) {
-      if (value === null) return;
+      this.loading = true;
 
+      if (value === null) return;
       const kanbanName = this.formatter(value.kanban);
       this.hasMood = await this.$database.hasMood(
         kanbanName,
@@ -116,6 +117,9 @@ export default {
         this.userInfo.name
       );
       if (this.hasMood) this.$refs.mood.style.color = "#c84865";
+      else this.$refs.mood.style.color = "";
+
+      this.loading = false;
     }
   },
 
@@ -144,10 +148,24 @@ export default {
       this.isLoadingDialog = true;
 
       const kanbanName = this.formatter(data.kanban);
-      if (this.hasMood)
+      if (this.hasMood) {
         await this.$database.subMood(kanbanName, data.id, this.userInfo.name);
-      else
+        this.articleData.mood.splice(
+          this.articleData.mood.findIndex(
+            item => item.name === this.userInfo.name
+          ),
+          1
+        );
+      } else {
         await this.$database.addMood(kanbanName, data.id, this.userInfo.name);
+        const moodData = {
+          id: this.articleData.mood ? this.articleData.mood.length : 0,
+          name: this.userInfo.name
+        };
+        if (this.articleData.mood === undefined)
+          this.articleData.mood = [moodData];
+        else this.articleData.mood.push(moodData);
+      }
 
       this.hasMood = await this.$database.hasMood(
         kanbanName,
