@@ -7,13 +7,13 @@ section
       h3 {{ article.title }}
       p {{ article.content }}
       footer
-        .mood
+        .mood(@click.stop="handkeClickMood(article)")
           awesome-icon(:icon="['fas', 'heart']")
           span &nbsp {{ article.mood ? article.mood.length : 0  }}
         .react
           awesome-icon(:icon="['fas', 'comment']")
           span &nbsp {{ article.reaction ? article.reaction.length : 0 }}
-        .collect
+        .collect(@click.stop="handkeClickCollect(article)")
           awesome-icon(:icon="['fas', 'bookmark']")
           span &nbsp 收藏
     .picture
@@ -51,9 +51,10 @@ section
 </template>
 
 <script>
-import { mapState } from "vuex";
-import dialogPage from "@/components/dialog-page";
+import { mapState, mapActions } from "vuex";
 import { KANBAN_LIST } from "@/config/site.js";
+import { deepCopy } from "@/helper";
+import dialogPage from "@/components/dialog-page";
 
 export default {
   name: "article-item",
@@ -109,7 +110,19 @@ export default {
         this.userInfo.name
       );
 
+      this.hasCollect = await this.$database.hasCollect(
+        value.kanban,
+        value.id,
+        this.userInfo.uid
+      );
+    },
+
+    hasMood() {
       this.$refs.mood.style.color = this.hasMood ? "#c84865" : "";
+    },
+
+    hasCollect() {
+      this.$refs.collect.style.color = this.hasCollect ? "#ee7832" : "";
     }
   },
 
@@ -118,6 +131,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setUserInfo"]),
+
     initSubmit() {
       this.submitData = {
         name: this.userInfo.name,
@@ -136,23 +151,33 @@ export default {
       this.loading.reaction = true;
 
       const kanbanName = this.formatter(data.kanban);
+
+      this.hasMood = await this.$database.hasMood(
+        kanbanName,
+        data.id,
+        this.userInfo.name
+      );
+
       if (this.hasMood) {
+        // 更新firebase
         await this.$database.subMood(kanbanName, data.id, this.userInfo.name);
-        this.articleData.mood.splice(
-          this.articleData.mood.findIndex(
-            item => item.name === this.userInfo.name
-          ),
-          1
+
+        // 更新本地
+        const index = data.mood.findIndex(
+          item => item.name === this.userInfo.name
         );
+        data.mood.splice(index, 1);
       } else {
+        // 更新firebase
         await this.$database.addMood(kanbanName, data.id, this.userInfo.name);
+
+        // 更新本地
         const moodData = {
-          id: this.articleData.mood ? this.articleData.mood.length : 0,
+          id: data.mood ? data.mood.length : 0,
           name: this.userInfo.name
         };
-        if (this.articleData.mood === undefined)
-          this.articleData.mood = [moodData];
-        else this.articleData.mood.push(moodData);
+        if (data.mood === undefined) data.mood = [moodData];
+        else data.mood.push(moodData);
       }
 
       this.hasMood = await this.$database.hasMood(
@@ -160,15 +185,48 @@ export default {
         data.id,
         this.userInfo.name
       );
-      this.$refs.mood.style.color = this.hasMood ? "#c84865" : "";
 
       this.loading.reaction = false;
     },
 
     // 點擊收藏
-    handkeClickCollect(data, event) {
-      let color = event.target.style.color;
-      event.target.style.color = color ? "" : "#ee7832";
+    async handkeClickCollect(data) {
+      this.loading.reaction = true;
+
+      this.hasCollect = await this.$database.hasCollect(
+        data.kanban,
+        data.id,
+        this.userInfo.uid
+      );
+
+      const submitData = deepCopy(this.userInfo);
+      if (this.hasCollect) {
+        // 更新firebase
+        await this.$database.subCollect(this.userInfo.uid, data);
+
+        // 更新本地
+        const index = submitData.collect.findIndex(
+          item => item.id === data.id && item.kanban === data.kanban
+        );
+        submitData.collect.splice(index, 1);
+        this.setUserInfo(submitData);
+      } else {
+        // 更新firebase
+        await this.$database.addCollect(this.userInfo.uid, data);
+
+        // 更新本地
+        if (submitData.collect === undefined) submitData.collect = [];
+        else submitData.collect.push(data);
+        this.setUserInfo(submitData);
+      }
+
+      this.hasCollect = await this.$database.hasCollect(
+        data.kanban,
+        data.id,
+        this.userInfo.uid
+      );
+
+      this.loading.reaction = false;
     },
 
     // 開啟留言框

@@ -107,6 +107,61 @@ export const database = {
       .catch(err => err);
   },
 
+  // 是否已經收藏文章
+  hasCollect: async (kanban, id, uid) => {
+    const path = `user/${uid}/collect`;
+    const data = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val());
+
+    if (data === null) return false;
+    const target = data.find(item => {
+      if (item !== undefined) return item.id === id && item.kanban === kanban;
+    });
+    return target === undefined ? false : true;
+  },
+
+  // 收藏文章
+  addCollect: async (uid, value) => {
+    const path = `user/${uid}/collect`;
+    const id = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot?.val()?.length ?? 0);
+
+    return firebase
+      .database()
+      .ref(`${path}/${id}`)
+      .set(value)
+      .then(() => {
+        return { id: id, status: true };
+      })
+      .catch(err => err);
+  },
+
+  // 取消收藏
+  subCollect: async (uid, value) => {
+    const path = `user/${uid}/collect`;
+    const data = await firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => snapshot.val());
+    const index = data.findIndex(
+      item => item.id === value.id && item.kanban === value.kanban
+    );
+
+    return firebase
+      .database()
+      .ref(`${path}/${index}`)
+      .remove()
+      .then(() => true)
+      .catch(err => err);
+  },
+
   // 是否已經點擊心情
   hasMood: async (kanbanName, id, user) => {
     const path = `data/${kanbanName}/${id}/mood`;
