@@ -1,5 +1,5 @@
 <template lang="pug">
-section
+section(v-loading="loading.page")
   //- 文章列表
   article(v-for="article of data" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
     .wrapper
@@ -13,7 +13,7 @@ section
         .react
           awesome-icon(:icon="['fas', 'comment']")
           span &nbsp {{ article.reaction ? article.reaction.length : 0 }}
-        .collect(@click.stop="handkeClickCollect(article)")
+        .collect(:class="{'opacity': userIsCollect(article) }" @click.stop="handkeClickCollect(article)")
           awesome-icon(:icon="['fas', 'bookmark']")
           span &nbsp 收藏
     .picture
@@ -73,6 +73,7 @@ export default {
   data() {
     return {
       loading: {
+        page: false,
         reaction: false
       },
       hasMood: false,
@@ -148,6 +149,7 @@ export default {
 
     // 點擊心情
     async handkeClickMood(data) {
+      this.loading.page = true;
       this.loading.reaction = true;
 
       const kanbanName = this.formatter(data.kanban);
@@ -163,9 +165,9 @@ export default {
         await this.$database.subMood(kanbanName, data.id, this.userInfo.name);
 
         // 更新本地
-        const index = data.mood.findIndex(
-          item => item.name === this.userInfo.name
-        );
+        const index = data.mood.findIndex(item => {
+          if (item) return item.name === this.userInfo.name;
+        });
         data.mood.splice(index, 1);
       } else {
         // 更新firebase
@@ -187,10 +189,12 @@ export default {
       );
 
       this.loading.reaction = false;
+      this.loading.page = false;
     },
 
     // 點擊收藏
     async handkeClickCollect(data) {
+      this.loading.page = true;
       this.loading.reaction = true;
 
       this.hasCollect = await this.$database.hasCollect(
@@ -200,14 +204,15 @@ export default {
       );
 
       const submitData = deepCopy(this.userInfo);
+
       if (this.hasCollect) {
         // 更新firebase
         await this.$database.subCollect(this.userInfo.uid, data);
 
         // 更新本地
-        const index = submitData.collect.findIndex(
-          item => item.id === data.id && item.kanban === data.kanban
-        );
+        const index = submitData.collect.findIndex(item => {
+          if (item) return item.id === data.id && item.kanban === data.kanban;
+        });
         submitData.collect.splice(index, 1);
         this.setUserInfo(submitData);
       } else {
@@ -216,7 +221,7 @@ export default {
 
         // 更新本地
         if (submitData.collect === undefined) submitData.collect = [];
-        else submitData.collect.push(data);
+        submitData.collect.push(data);
         this.setUserInfo(submitData);
       }
 
@@ -225,8 +230,8 @@ export default {
         data.id,
         this.userInfo.uid
       );
-
       this.loading.reaction = false;
+      this.loading.page = false;
     },
 
     // 開啟留言框
@@ -254,6 +259,13 @@ export default {
       this.rollInBottom();
       this.closeReaction();
       this.initSubmit();
+    },
+
+    userIsCollect(data) {
+      if (this.userInfo.collect === undefined) return;
+      return this.userInfo.collect.find(item => {
+        if (item) return item.id === data.id && item.kanban === data.kanban;
+      });
     },
 
     // 滾至底部

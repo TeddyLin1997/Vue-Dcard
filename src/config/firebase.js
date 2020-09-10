@@ -110,17 +110,25 @@ export const database = {
   // 是否已經收藏文章
   hasCollect: async (kanban, id, uid) => {
     const path = `user/${uid}/collect`;
-    const data = await firebase
+    let data = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val());
+    if (!data) return false;
+    else {
+      // firebase array資料剩一筆時會變成object
+      if (Object.prototype.toString.call(data) === "[object Object]") {
+        const result = [];
+        Object.keys(data).forEach(item => (result[item] = data[item]));
+        data = result;
+      }
 
-    if (data === null) return false;
-    const target = data.find(item => {
-      if (item !== undefined) return item.id === id && item.kanban === kanban;
-    });
-    return target === undefined ? false : true;
+      const target = data.find(item => {
+        if (item) return item.id === id && item.kanban === kanban;
+      });
+      return target === undefined ? false : true;
+    }
   },
 
   // 收藏文章
@@ -145,14 +153,20 @@ export const database = {
   // 取消收藏
   subCollect: async (uid, value) => {
     const path = `user/${uid}/collect`;
-    const data = await firebase
+    let data = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val());
-    const index = data.findIndex(
-      item => item.id === value.id && item.kanban === value.kanban
-    );
+
+    if (Object.prototype.toString.call(data) === "[object Object]") {
+      const result = [];
+      Object.keys(data).forEach(item => (result[item] = data[item]));
+      data = result;
+    }
+    const index = data.findIndex(item => {
+      if (item) return item.id === value.id && item.kanban === value.kanban;
+    });
 
     return firebase
       .database()
@@ -172,7 +186,9 @@ export const database = {
       .then(snapshot => snapshot.val());
 
     if (data === null) return false;
-    const target = data.find(item => item.name === user);
+    const target = data.find(item => {
+      if (item) return item.name === user;
+    });
     return target === undefined ? false : true;
   },
 
@@ -204,7 +220,9 @@ export const database = {
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val());
-    const findObj = data.find(item => item.name === user);
+    const findObj = data.find(item => {
+      if (item) return item.name === user;
+    });
     return firebase
       .database()
       .ref(`${path}/${findObj.id}`)

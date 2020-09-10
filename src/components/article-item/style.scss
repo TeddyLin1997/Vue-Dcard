@@ -57,6 +57,7 @@ article {
     }
     .collect {
       color: #ee7832;
+      opacity: .5;
     }
   }
 }
@@ -191,4 +192,8 @@ button {
   &:hover {
     opacity: .8;
   }
+}
+
+.opacity {
+  opacity: 1 !important;
 }
