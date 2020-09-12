@@ -32,34 +32,6 @@ export const DEFAULT_LIST = {
       color: "#006aa6",
       fontColor: "#fff"
     }
-    // {
-    //   name: "即時熱門看板",
-    //   icon: ["fas", "fire"],
-    //   code: "hot",
-    //   color: "#f4cf20",
-    //   fontColor: "#da0a29"
-    // },
-    // {
-    //   name: "好物研究室",
-    //   icon: ["fas", "store-alt"],
-    //   code: "goods",
-    //   color: "#f97c00",
-    //   fontColor: "#fff"
-    // },
-    // {
-    //   name: "遊戲專區",
-    //   icon: ["fas", "gamepad"],
-    //   code: "game",
-    //   color: "#00b8dc",
-    //   fontColor: "#333333"
-    // },
-    // {
-    //   name: "社會新鮮人熱門看版",
-    //   icon: ["fas", "briefcase"],
-    //   code: "novice",
-    //   color: "#7c4a2c",
-    //   fontColor: "#f9e6cc"
-    // }
   ]
 };
 
@@ -201,50 +173,15 @@ export const USER_NAVIGATION_LIST = [
   {
     name: "我追蹤的看板",
     icon: ["fas", "heart"],
-    code: "followkanban",
+    code: "follow",
     color: "#00324e",
     fontColor: "#c84865"
   },
-  // {
-  //   name: "我追蹤的卡稱",
-  //   icon: ["fas", "rss"],
-  //   code: "followid",
-  //   color: "#00324e",
-  //   fontColor: "#109faf"
-  // },
   {
     name: "我發表的文章",
     icon: ["fas", "pencil-alt"],
-    code: "article",
+    code: "post",
     color: "#00324e",
     fontColor: "#f6bf02"
-  },
-  {
-    name: "抽卡自我介紹",
-    icon: ["fas", "dice-d6"],
-    code: "introduction",
-    color: "#00324e",
-    fontColor: "#b27716"
-  },
-  // {
-  //   name: "我的卡稱",
-  //   icon: ["fas", "id-badge"],
-  //   code: "id",
-  //   color: "#00324e",
-  //   fontColor: "#3397cf"
-  // },
-  // {
-  //   name: "我的卡友",
-  //   icon: ["fas", "user-friends"],
-  //   code: "friend",
-  //   color: "#00324e",
-  //   fontColor: "#3397cf"
-  // },
-  {
-    name: "設定",
-    icon: ["fas", "cog"],
-    code: "setting",
-    color: "#00324e",
-    fontColor: "#64818c"
   }
 ];

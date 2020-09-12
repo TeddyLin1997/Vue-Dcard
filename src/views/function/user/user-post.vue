@@ -1,5 +1,5 @@
 <template lang="pug">
-  #user-follow-kanban
+  .user
     header
       span 追蹤的看板
 
@@ -17,7 +17,7 @@ import { mapState } from "vuex";
 import kanbanTitle from "@/components/kanban-title";
 
 export default {
-  name: "user-collect",
+  name: "user-post",
 
   components: {
     kanbanTitle
@@ -42,37 +42,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section {
-  width: 100%;
-  max-height: 560px;
-  overflow: auto;
-}
-
-#user-collect,
-.no-collect,
-body {
-  @include flex(column);
-}
-
-header {
-  padding: 0.4rem 0;
-  width: 100%;
-  text-align: left;
-  border-bottom: 1px solid #00000044;
-  span {
-    font-size: 1.6rem;
-  }
-}
-
-body {
-  width: 100%;
-}
-
-.no-collect {
-  img {
-    margin: 1rem;
-    width: 280px;
-    height: auto;
-  }
-}
+@import "./user-style.scss";
 </style>

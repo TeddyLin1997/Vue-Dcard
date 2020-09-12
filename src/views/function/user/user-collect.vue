@@ -1,5 +1,5 @@
 <template lang="pug">
-  #user-collect
+  .user
     header
       span 我的收藏
 
@@ -29,32 +29,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#user-collect,
-.no-collect,
-body {
-  @include flex(column);
-}
-
-header {
-  padding: 0.4rem 0;
-  width: 100%;
-  text-align: left;
-  border-bottom: 1px solid #00000044;
-  span {
-    font-size: 1.6rem;
-  }
-}
-
-body {
-  width: 100%;
-  min-height: 600px;
-}
-
-.no-collect {
-  img {
-    margin: 1rem;
-    width: 280px;
-    height: auto;
-  }
-}
+@import "./user-style.scss";
 </style>

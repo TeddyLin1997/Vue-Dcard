@@ -76,6 +76,7 @@ export default {
         page: false,
         reaction: false
       },
+      debounce: false,
       hasMood: false,
       hasCollect: false,
       openDialog: false,
@@ -249,7 +250,8 @@ export default {
 
     // 送出留言
     async postReaction(data, submitData, event) {
-      if (event.shiftKey) return;
+      if (event.shiftKey || this.debounce) return;
+      this.debounce = true;
 
       const kanbanName = this.formatter(data.kanban);
       if (data.reaction === undefined) data.reaction = [submitData];
@@ -259,6 +261,8 @@ export default {
       this.rollInBottom();
       this.closeReaction();
       this.initSubmit();
+
+      this.debounce = false;
     },
 
     userIsCollect(data) {

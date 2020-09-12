@@ -34,7 +34,7 @@ export default {
   top: 0px;
   width: 100%;
   background-color: $skyBlue;
-  z-index: 10;
+  z-index: 1;
 }
 .header {
   @include flex(row, space-between);

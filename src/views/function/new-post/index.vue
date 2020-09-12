@@ -85,7 +85,8 @@ export default {
       if (this.postForm.kanbanName === "點此選擇發文看板") return true;
       if (this.postForm.kanbanCode === "") return true;
       if (this.postForm.name === "請選擇發文身份") return true;
-      if (this.postForm.title === "") return true;
+      if (this.postForm.title === "" || this.postForm.title.length > 20)
+        return true;
       if (this.postForm.content === "") return true;
       return false;
     },
@@ -149,9 +150,9 @@ export default {
     },
 
     async postNewArticle() {
-      this.loading = true;
-
       if (this.disable) return;
+
+      this.loading = true;
 
       const kanbanName = this.postForm.kanbanCode;
       const value = {

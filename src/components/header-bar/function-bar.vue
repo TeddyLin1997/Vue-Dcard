@@ -40,7 +40,8 @@ export default {
     getEvent(action) {
       if (action === "dropdown")
         return (this.openDropDown = !this.openDropDown);
-      if (action === "notify") return;
+      if (["notify", "lottery", "e-mail"].includes(action))
+        return this.$message("尚未啟用功能");
 
       this.active = action;
 

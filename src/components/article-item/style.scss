@@ -27,7 +27,11 @@ article {
   }
   
   h3 {
+    width: 90%;
     font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   p {

@@ -15,7 +15,8 @@
 
     main
       user-collect(v-show="visible.userCollect")
-      user-follow-kanban(v-show="visible.userFollowKanban")
+      user-follow(v-show="visible.userFollow")
+      user-post(v-show="visible.userPost")
       
 </template>
 
@@ -24,7 +25,8 @@ import circleIcon from "@/components/circle-icon";
 import { USER_NAVIGATION_LIST } from "@/config/site";
 import { mapState } from "vuex";
 import userCollect from "./user-collect";
-import userFollowKanban from "./user-follow-kanban";
+import userFollow from "./user-follow";
+import userPost from "./user-post";
 
 export default {
   name: "user",
@@ -32,7 +34,8 @@ export default {
   components: {
     circleIcon,
     userCollect,
-    userFollowKanban
+    userFollow,
+    userPost
   },
 
   data() {
@@ -48,7 +51,8 @@ export default {
     visible() {
       return {
         userCollect: this.activePage === "collect",
-        userFollowKanban: this.activePage === "followkanban"
+        userFollow: this.activePage === "follow",
+        userPost: this.activePage === "post"
       };
     }
   },
