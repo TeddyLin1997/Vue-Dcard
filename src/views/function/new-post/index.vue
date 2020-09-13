@@ -167,10 +167,22 @@ export default {
         img: "picture"
       };
 
-      this.postArticleApi(value);
-      this.setUserInfoPost(value);
+      await this.postArticleApi(value);
 
       this.loading = false;
+    },
+
+    async postArticleApi(value) {
+      const result = await this.$database.setArticle(value);
+      if (result.status === false) return this.$message("發表失敗", "error");
+
+      this.setUserInfoPost({ ...value, id: result.id });
+
+      this.$message("發表成功");
+      this.$router.push({
+        name: "kanban",
+        params: { kanban: value.kanbanCode, id: result.id }
+      });
     },
 
     setUserInfoPost(value) {
@@ -180,18 +192,6 @@ export default {
 
       this.setUserInfo(userInfo);
       this.$database.setUser(userInfo);
-    },
-
-    async postArticleApi(value) {
-      const result = await this.$database.setArticle(value);
-
-      if (result.status === false) return this.$message("發表失敗", "error");
-
-      this.$message("發表成功");
-      this.$router.push({
-        name: "kanban",
-        params: { kanban: value.kanbanCode, id: result.id }
-      });
     }
   }
 };

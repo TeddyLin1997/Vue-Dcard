@@ -1,5 +1,5 @@
 <template lang="pug">
-  #user
+  #user(v-loading="loading")
     .aside
       //- 個人資料
       .avatar
@@ -40,6 +40,7 @@ export default {
 
   data() {
     return {
+      loading: true,
       userNavigationList: USER_NAVIGATION_LIST,
       activePage: "collect"
     };
@@ -55,6 +56,12 @@ export default {
         userPost: this.activePage === "post"
       };
     }
+  },
+
+  async created() {
+    this.loading = true;
+    await this.$nextTick();
+    this.loading = false;
   },
 
   methods: {
