@@ -84,9 +84,9 @@ export default {
             this.userForm.login.account,
             this.userForm.login.password
           )
-          .then(() => this.$message("成功"))
           .then(() => this.saveUserInfo())
           .then(() => this.$router.push({ path: "/" }))
+          .then(() => this.$message("成功"))
           .catch(err => this.$message(err.message, "error"));
       }
       // 註冊

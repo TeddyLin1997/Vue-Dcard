@@ -85,7 +85,7 @@ export default {
       if (this.postForm.kanbanName === "點此選擇發文看板") return true;
       if (this.postForm.kanbanCode === "") return true;
       if (this.postForm.name === "請選擇發文身份") return true;
-      if (this.postForm.title === "" || this.postForm.title.length > 20)
+      if (this.postForm.title === "" || this.postForm.title.length > 50)
         return true;
       if (this.postForm.content === "") return true;
       return false;

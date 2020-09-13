@@ -26,13 +26,17 @@ export default {
   computed: {
     ...mapState(["userInfo", "kanbanList"]),
 
+    userKanbanList() {
+      return this.userInfo.kanban || [];
+    },
+
     noHaveCollect() {
-      return this.userInfo.kanban.length === 0;
+      return this.userKanbanList.length === 0;
     },
 
     dataList() {
       const result = [];
-      this.userInfo.kanban.forEach(kanban => {
+      this.userKanbanList.forEach(kanban => {
         result.push(this.kanbanList.find(item => item.code === kanban));
       });
       return result;

@@ -41,7 +41,7 @@ export default {
       if (action === "dropdown")
         return (this.openDropDown = !this.openDropDown);
       if (["notify", "lottery", "e-mail"].includes(action))
-        return this.$message("尚未啟用功能");
+        return this.$message("尚未開放此功能");
 
       this.active = action;
 
@@ -49,8 +49,8 @@ export default {
     },
 
     logOut() {
-      this.setUserInfo(null);
       this.$router.push({ name: "login" });
+      this.setUserInfo(null);
       this.$message("成功登出");
     }
   }

@@ -1,7 +1,7 @@
 <template lang="pug">
   .user
     header
-      span 追蹤的看板
+      span 我發表的文章
 
     body
       .no-collect(v-if="noHaveCollect")
@@ -17,7 +17,7 @@ import { mapState } from "vuex";
 import kanbanTitle from "@/components/kanban-title";
 
 export default {
-  name: "user-post",
+  name: "user-follow",
 
   components: {
     kanbanTitle
@@ -26,13 +26,17 @@ export default {
   computed: {
     ...mapState(["userInfo", "kanbanList"]),
 
+    userKanbanList() {
+      return this.userInfo.kanban || [];
+    },
+
     noHaveCollect() {
-      return this.userInfo.kanban.length === 0;
+      return this.userKanbanList.length === 0;
     },
 
     dataList() {
       const result = [];
-      this.userInfo.kanban.forEach(kanban => {
+      this.userKanbanList.forEach(kanban => {
         result.push(this.kanbanList.find(item => item.code === kanban));
       });
       return result;

@@ -1,7 +1,7 @@
 <template lang="pug">
 section(v-loading="loading.page")
   //- 文章列表
-  article(v-for="article of data" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
+  article(v-for="article of articleList" :key="`${article.kanban}-${article.id}`" @click="getArticle(article)")
     .wrapper
       span {{ article.name }} 、 {{ article.time }}
       h3 {{ article.title }}
@@ -92,6 +92,10 @@ export default {
 
     visibility() {
       return this.openReaction ? "hidden" : "visible";
+    },
+
+    articleList() {
+      return this.data.filter(Boolean);
     }
   },
 

@@ -28,8 +28,12 @@ export default {
   computed: {
     ...mapState(["userInfo"]),
 
+    userFollowList() {
+      return this.userInfo.kanban || [];
+    },
+
     hasFollowed() {
-      return this.userInfo.kanban.includes(this.kanban.code);
+      return this.userFollowList.includes(this.kanban.code);
     }
   },
 
@@ -39,6 +43,7 @@ export default {
     changeKanban(action, code) {
       const submitData = deepCopy(this.userInfo);
 
+      if (submitData.kanban === undefined) submitData.kanban = [];
       if (action === "follow") submitData.kanban.push(code);
       else {
         const index = submitData.kanban.findIndex(item => item === code);
