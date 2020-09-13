@@ -108,7 +108,7 @@ export const database = {
   },
 
   // 是否已經收藏文章
-  hasCollect: async (kanban, id, uid) => {
+  hasCollect: async (article, uid) => {
     const path = `user/${uid}/collect`;
     let data = await firebase
       .database()
@@ -125,14 +125,15 @@ export const database = {
       }
 
       const target = data.find(item => {
-        if (item) return item.id === id && item.kanban === kanban;
+        if (item)
+          return item.id === article.id && item.kanban === article.kanban;
       });
       return target === undefined ? false : true;
     }
   },
 
   // 收藏文章
-  addCollect: async (uid, value) => {
+  addCollect: async (article, uid) => {
     const path = `user/${uid}/collect`;
     const id = await firebase
       .database()
@@ -143,7 +144,7 @@ export const database = {
     return firebase
       .database()
       .ref(`${path}/${id}`)
-      .set(value)
+      .set(article)
       .then(() => {
         return { id: id, status: true };
       })
@@ -151,7 +152,7 @@ export const database = {
   },
 
   // 取消收藏
-  subCollect: async (uid, value) => {
+  subCollect: async (article, uid) => {
     const path = `user/${uid}/collect`;
     let data = await firebase
       .database()
@@ -165,7 +166,7 @@ export const database = {
       data = result;
     }
     const index = data.findIndex(item => {
-      if (item) return item.id === value.id && item.kanban === value.kanban;
+      if (item) return item.id === article.id && item.kanban === article.kanban;
     });
 
     return firebase
@@ -177,8 +178,8 @@ export const database = {
   },
 
   // 是否已經點擊心情
-  hasMood: async (kanbanName, id, user) => {
-    const path = `data/${kanbanName}/${id}/mood`;
+  hasMood: async (article, user) => {
+    const path = `data/${article.kanbanCode}/${article.id}/mood`;
     const data = await firebase
       .database()
       .ref(path)
@@ -193,8 +194,8 @@ export const database = {
   },
 
   // 點擊心情
-  addMood: async (kanbanName, id, user) => {
-    const path = `data/${kanbanName}/${id}/mood`;
+  addMood: async (article, user) => {
+    const path = `data/${article.kanbanCode}/${article.id}/mood`;
 
     const moodId = await firebase
       .database()
@@ -207,22 +208,24 @@ export const database = {
       .ref(`${path}/${moodId}`)
       .set({ name: user, id: moodId })
       .then(() => {
-        return { id: id, status: true };
+        return { id: article.id, status: true };
       })
       .catch(err => err);
   },
 
   // 收回心情
-  subMood: async (kanbanName, id, user) => {
-    const path = `data/${kanbanName}/${id}/mood`;
+  subMood: async (article, user) => {
+    const path = `data/${article.kanbanCode}/${article.id}/mood`;
     const data = await firebase
       .database()
       .ref(path)
       .once("value")
       .then(snapshot => snapshot.val());
+
     const findObj = data.find(item => {
       if (item) return item.name === user;
     });
+
     return firebase
       .database()
       .ref(`${path}/${findObj.id}`)

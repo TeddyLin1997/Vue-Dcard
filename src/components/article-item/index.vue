@@ -7,13 +7,13 @@ section(v-loading="loading.page")
       h3 {{ article.title }}
       p {{ article.content }}
       footer
-        .mood(@click.stop="handkeClickMood(article)")
+        .mood(@click.stop="handkeClickMood(article, userInfo.name)")
           awesome-icon(:icon="['fas', 'heart']")
           span &nbsp {{ article.mood ? article.mood.length : 0  }}
         .react
           awesome-icon(:icon="['fas', 'comment']")
           span &nbsp {{ article.reaction ? article.reaction.length : 0 }}
-        .collect(:class="{'opacity': userIsCollect(article) }" @click.stop="handkeClickCollect(article)")
+        .collect(:class="{'opacity': userIsCollect(article) }" @click.stop="handkeClickCollect(article, userInfo.uid)")
           awesome-icon(:icon="['fas', 'bookmark']")
           span &nbsp 收藏
     .picture
@@ -40,8 +40,8 @@ section(v-loading="loading.page")
         awesome-icon.user(:icon="['fas', 'user']")
         span {{ userInfo.name }}
         .react(:style="{ 'visibility' : visibility }" @click="expandReaction()") 回應...
-        awesome-icon.icon(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData)")
-        awesome-icon.icon(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData)")
+        awesome-icon.icon(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData, userInfo.name)")
+        awesome-icon.icon(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData, userInfo.uid)")
       template(v-if="openReaction")
         textarea(ref="textarea" v-model="submitData.reaction" placeholder="回應..." @keyup.enter="postReaction(articleData, submitData, $event)")
         .submit
@@ -145,66 +145,52 @@ export default {
     },
 
     // 點擊心情
-    async handkeClickMood(data) {
+    async handkeClickMood(data, name) {
       this.loading.page = true;
       this.loading.reaction = true;
 
-      const kanbanName = this.formatter(data.kanban);
-
-      this.hasMood = await this.$database.hasMood(
-        kanbanName,
-        data.id,
-        this.userInfo.name
-      );
+      this.hasMood = await this.$database.hasMood(data, name);
 
       if (this.hasMood) {
         // 更新firebase
-        await this.$database.subMood(kanbanName, data.id, this.userInfo.name);
+        await this.$database.subMood(data, name);
 
         // 更新本地
         const index = data.mood.findIndex(item => {
-          if (item) return item.name === this.userInfo.name;
+          if (item) return item.name === name;
         });
         data.mood.splice(index, 1);
       } else {
         // 更新firebase
-        await this.$database.addMood(kanbanName, data.id, this.userInfo.name);
+        await this.$database.addMood(data, name);
 
         // 更新本地
         const moodData = {
           id: data.mood ? data.mood.length : 0,
-          name: this.userInfo.name
+          name: name
         };
         if (data.mood === undefined) data.mood = [moodData];
         else data.mood.push(moodData);
       }
 
-      this.hasMood = await this.$database.hasMood(
-        kanbanName,
-        data.id,
-        this.userInfo.name
-      );
+      this.hasMood = await this.$database.hasMood(data, name);
 
       this.loading.reaction = false;
       this.loading.page = false;
     },
 
     // 點擊收藏
-    async handkeClickCollect(data) {
+    async handkeClickCollect(data, uid) {
       this.loading.page = true;
       this.loading.reaction = true;
 
-      this.hasCollect = await this.$database.hasCollect(
-        data.kanban,
-        data.id,
-        this.userInfo.uid
-      );
+      this.hasCollect = await this.$database.hasCollect(data, uid);
 
       const submitData = deepCopy(this.userInfo);
 
       if (this.hasCollect) {
         // 更新firebase
-        await this.$database.subCollect(this.userInfo.uid, data);
+        await this.$database.subCollect(data, uid);
 
         // 更新本地
         const index = submitData.collect.findIndex(item => {
@@ -214,7 +200,7 @@ export default {
         this.setUserInfo(submitData);
       } else {
         // 更新firebase
-        await this.$database.addCollect(this.userInfo.uid, data);
+        await this.$database.addCollect(data, uid);
 
         // 更新本地
         if (submitData.collect === undefined) submitData.collect = [];
@@ -222,11 +208,7 @@ export default {
         this.setUserInfo(submitData);
       }
 
-      this.hasCollect = await this.$database.hasCollect(
-        data.kanban,
-        data.id,
-        this.userInfo.uid
-      );
+      this.hasCollect = await this.$database.hasCollect(data, uid);
       this.loading.reaction = false;
       this.loading.page = false;
     },
