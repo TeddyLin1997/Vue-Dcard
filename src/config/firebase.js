@@ -178,7 +178,7 @@ export const database = {
   },
 
   // 是否已經點擊心情
-  hasMood: async (article, user) => {
+  hasMood: async (article, name) => {
     const path = `data/${article.kanbanCode}/${article.id}/mood`;
     const data = await firebase
       .database()
@@ -188,7 +188,7 @@ export const database = {
 
     if (data === null) return false;
     const target = data.find(item => {
-      if (item) return item.name === user;
+      if (item) return item.name === name;
     });
     return target === undefined ? false : true;
   },

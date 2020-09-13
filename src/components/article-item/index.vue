@@ -40,8 +40,8 @@ section(v-loading="loading.page")
         awesome-icon.user(:icon="['fas', 'user']")
         span {{ userInfo.name }}
         .react(:style="{ 'visibility' : visibility }" @click="expandReaction()") 回應...
-        awesome-icon.icon(ref="mood" :icon="['fas', 'heart']" @click="handkeClickMood(articleData, userInfo.name)")
-        awesome-icon.icon(ref="collect" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData, userInfo.uid)")
+        awesome-icon.icon(:class="{ 'dialog_mood' : hasMood }" :icon="['fas', 'heart']" @click="handkeClickMood(articleData, userInfo.name)")
+        awesome-icon.icon(:class="{ 'dialog_collect' : hasCollect }" :icon="['fas', 'bookmark']" @click="handkeClickCollect(articleData, userInfo.uid)")
       template(v-if="openReaction")
         textarea(ref="textarea" v-model="submitData.reaction" placeholder="回應..." @keyup.enter="postReaction(articleData, submitData, $event)")
         .submit
@@ -109,18 +109,10 @@ export default {
 
     async articleData(value) {
       if (value === null) return;
-      const kanbanName = this.formatter(value.kanban);
-      this.hasMood = await this.$database.hasMood(
-        kanbanName,
-        value.id,
-        this.userInfo.name
-      );
+      const user = this.userInfo;
 
-      this.hasCollect = await this.$database.hasCollect(
-        value.kanban,
-        value.id,
-        this.userInfo.uid
-      );
+      this.hasMood = await this.$database.hasMood(value, user.name);
+      this.hasCollect = await this.$database.hasCollect(value, user.uid);
     }
   },
 
@@ -174,6 +166,7 @@ export default {
       }
 
       this.hasMood = await this.$database.hasMood(data, name);
+      this.$forceUpdate();
 
       this.loading.reaction = false;
       this.loading.page = false;
@@ -244,10 +237,13 @@ export default {
     },
 
     userIsCollect(data) {
-      if (this.userInfo.collect === undefined) return;
-      return this.userInfo.collect.find(item => {
+      if (this.userInfo.collect === undefined || data === null) return;
+      const target = this.userInfo.collect.find(item => {
         if (item) return item.id === data.id && item.kanban === data.kanban;
       });
+
+      const result = target || null;
+      return result;
     },
 
     // 滾至底部
