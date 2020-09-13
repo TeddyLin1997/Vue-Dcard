@@ -68,7 +68,6 @@ export default {
 
     async getAllData() {
       let allData = await this.$database.get("data");
-      delete allData.home;
       Object.keys(allData).forEach(key => {
         this.allDataList.push(...allData[key]);
       });

@@ -48,8 +48,8 @@ export default {
       this.$router.push({ name: action }).catch(() => {});
     },
 
-    logOut() {
-      this.$router.push({ name: "login" });
+    async logOut() {
+      await this.$router.push({ name: "login" });
       this.setUserInfo(null);
       this.$message("成功登出");
     }

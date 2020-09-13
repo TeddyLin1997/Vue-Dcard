@@ -9,16 +9,16 @@ export const routes = [
     name: "user",
     component: () => import("@/views/function/user")
   },
-  {
-    path: "/function/e-mail",
-    name: "e-mail",
-    component: () => import("@/views/function/e-mail")
-  },
-  {
-    path: "/function/lottery",
-    name: "lottery",
-    component: () => import("@/views/function/lottery")
-  },
+  // {
+  //   path: "/function/e-mail",
+  //   name: "e-mail",
+  //   component: () => import("@/views/function/e-mail")
+  // },
+  // {
+  //   path: "/function/lottery",
+  //   name: "lottery",
+  //   component: () => import("@/views/function/lottery")
+  // },
   {
     path: "/function/new-post",
     name: "new-post",

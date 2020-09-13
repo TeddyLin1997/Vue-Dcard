@@ -17,7 +17,7 @@ section(v-loading="loading.page")
           awesome-icon(:icon="['fas', 'bookmark']")
           span &nbsp 收藏
     .picture
-      img(:src="`https://picsum.photos/200/200?random=${article.id}`")
+      img(:src="`https://picsum.photos/200/200?random=${article.sortTime}`")
 
   //- 詳細內文
   dialog-page(:visible.sync="openDialog" min-width="720px" height="100vh")

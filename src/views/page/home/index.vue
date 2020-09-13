@@ -44,7 +44,16 @@ export default {
   methods: {
     async getArticle() {
       this.loading = true;
-      this.articleList = await this.$database.getArticle("home");
+
+      const allKanban = await this.$database.get("data");
+      const result = [];
+      if (allKanban === null) this.articleList = [];
+      else {
+        Object.keys(allKanban).forEach(key => result.push(...allKanban[key]));
+        result.sort((a, b) => b.sortTime - a.sortTime);
+        this.articleList = result;
+      }
+
       this.loading = false;
     }
   }
