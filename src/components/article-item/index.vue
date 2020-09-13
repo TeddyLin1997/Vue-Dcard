@@ -121,14 +121,6 @@ export default {
         value.id,
         this.userInfo.uid
       );
-    },
-
-    hasMood() {
-      this.$refs.mood.style.color = this.hasMood ? "#c84865" : "";
-    },
-
-    hasCollect() {
-      this.$refs.collect.style.color = this.hasCollect ? "#ee7832" : "";
     }
   },
 

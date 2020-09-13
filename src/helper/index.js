@@ -8,7 +8,7 @@ export const deepCopy = value => {
 export const getNowDateTime = () => {
   const now = new Date();
   const result = `${now.getMonth() +
-    1}月${now.getDate()}日 ${now.getHours()}:${now.getMinutes()}`;
+    1}月${now.getDate()}日 ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
   return result;
 };
 

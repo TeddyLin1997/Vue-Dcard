@@ -36,9 +36,11 @@ export default {
 
     dataList() {
       const result = [];
+
       this.userKanbanList.forEach(kanban => {
         result.push(this.kanbanList.find(item => item.code === kanban));
       });
+
       return result;
     }
   }

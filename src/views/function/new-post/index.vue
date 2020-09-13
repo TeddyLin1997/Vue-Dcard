@@ -16,7 +16,7 @@
         textarea(v-model="postForm.content" type="textarea" placeholder="內文")
       .button
         button(@click="cancel()") 取消
-        button(:class="{ 'disable': disable }" @click="postNewArticle()") 發表
+        button(:class="{ 'disable': disable }" @click="postNewArticle(postForm)") 發表
     
     //- 選擇狀態按鈕
     dialog-page(:visible.sync="isOpenDialog" radius width="500px")
@@ -51,8 +51,8 @@
 <script>
 import dialogPage from "@/components/dialog-page";
 import circleIcon from "@/components/circle-icon";
-import { getNowDateTime } from "@/helper";
-import { mapState } from "vuex";
+import { getNowDateTime, deepCopy } from "@/helper";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "new-post",
@@ -124,6 +124,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setUserInfo"]),
+
     // 選擇發文資訊
     selectPostInfo(value) {
       this.isOpenDialog = true;
@@ -149,42 +151,47 @@ export default {
       this.$router.go(-1);
     },
 
-    async postNewArticle() {
+    async postNewArticle(formData) {
       if (this.disable) return;
 
       this.loading = true;
 
-      const kanbanName = this.postForm.kanbanCode;
       const value = {
-        name: this.postForm.name,
+        name: formData.name,
         time: getNowDateTime(),
-        kanban: this.postForm.kanbanName,
-        title: this.postForm.title,
-        content: this.postForm.content,
-        img: "picture",
-        mood: [],
-        reaction: []
+        sortTime: Date.now(),
+        kanban: formData.kanbanName,
+        kanbanCode: formData.kanbanCode,
+        title: formData.title,
+        content: formData.content,
+        img: "picture"
       };
 
-      const homeValue = {
-        ...value,
-        kanban: "home"
-      };
-
-      const result = await Promise.all([
-        this.$database.setArticle("home", homeValue),
-        this.$database.setArticle(kanbanName, value)
-      ]);
-
-      if (result.every(item => item.status === true)) {
-        this.$message("發表成功");
-        this.$router.push({
-          name: "kanban",
-          params: { kanban: this.postForm.kanbanCode, id: result.id }
-        });
-      } else this.$message("發表失敗", "error");
+      this.postArticleApi(value);
+      this.setUserInfoPost(value);
 
       this.loading = false;
+    },
+
+    setUserInfoPost(value) {
+      const userInfo = deepCopy(this.userInfo);
+      if (userInfo.post) userInfo.post.push(value);
+      else userInfo.post = [value];
+
+      this.setUserInfo(userInfo);
+      this.$database.setUser(userInfo);
+    },
+
+    async postArticleApi(value) {
+      const result = await this.$database.setArticle(value);
+
+      if (result.status === false) return this.$message("發表失敗", "error");
+
+      this.$message("發表成功");
+      this.$router.push({
+        name: "kanban",
+        params: { kanban: value.kanbanCode, id: result.id }
+      });
     }
   }
 };

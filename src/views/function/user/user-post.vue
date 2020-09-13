@@ -4,42 +4,34 @@
       span 我發表的文章
 
     body
-      .no-collect(v-if="noHaveCollect")
+      .no-collect(v-if="noHavePost")
         img(src="@/assets/images/collect.png")
         span 沒有收藏的看板
       .section(v-else)
-        kanban-title(v-for="kanban of dataList" :key="kanban.code" :kanban="kanban" border)
+        article-item(:data="userPostList")
 
 </template>
 
 <script>
 import { mapState } from "vuex";
-import kanbanTitle from "@/components/kanban-title";
+import articleItem from "@/components/article-item";
 
 export default {
   name: "user-follow",
 
   components: {
-    kanbanTitle
+    articleItem
   },
 
   computed: {
     ...mapState(["userInfo", "kanbanList"]),
 
-    userKanbanList() {
-      return this.userInfo.kanban || [];
+    userPostList() {
+      return this.userInfo.post || [];
     },
 
-    noHaveCollect() {
-      return this.userKanbanList.length === 0;
-    },
-
-    dataList() {
-      const result = [];
-      this.userKanbanList.forEach(kanban => {
-        result.push(this.kanbanList.find(item => item.code === kanban));
-      });
-      return result;
+    noHavePost() {
+      return this.userPostList.length === 0;
     }
   }
 };

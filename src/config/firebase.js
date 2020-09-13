@@ -48,8 +48,8 @@ export const database = {
   },
 
   // 設定使用者資料
-  setUser: (uid, value) => {
-    const path = `user/${uid}`;
+  setUser: value => {
+    const path = `user/${value.uid}`;
     return firebase
       .database()
       .ref(path)
@@ -70,8 +70,8 @@ export const database = {
   },
 
   // 發表文章
-  setArticle: async (kanbanName, value) => {
-    const path = `data/${kanbanName}`;
+  setArticle: async value => {
+    const path = `data/${value.kanbanCode}`;
     const id = await firebase
       .database()
       .ref(path)

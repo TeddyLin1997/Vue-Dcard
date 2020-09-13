@@ -14,9 +14,9 @@
           span.content {{ item.name }}
 
     main
-      user-collect(v-show="visible.userCollect")
-      user-follow(v-show="visible.userFollow")
-      user-post(v-show="visible.userPost")
+      user-collect(v-if="visible.userCollect")
+      user-follow(v-if="visible.userFollow")
+      user-post(v-if="visible.userPost")
       
 </template>
 

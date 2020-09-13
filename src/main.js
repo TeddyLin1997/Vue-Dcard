@@ -32,17 +32,26 @@ new Vue({
 
   created() {
     this.getGlobalData();
+    this.getUserInfo();
   },
 
   methods: {
     ...mapActions(["setUserInfo", "setKanbanList", "setTabList"]),
 
     getGlobalData() {
-      const userinfo = JSON.parse(window.localStorage.getItem("userInfo"));
-      if (userinfo) this.setUserInfo(userinfo);
-
       this.setKanbanList(KANBAN_LIST.data);
       this.setTabList(TAB_LIST);
+    },
+
+    async getUserInfo() {
+      const oldUserInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+      if (oldUserInfo) {
+        // 未先設定router 會找不到userInfo
+        this.setUserInfo(oldUserInfo);
+
+        const userInfo = await this.$database.getUser(oldUserInfo.uid);
+        this.setUserInfo(userInfo);
+      }
     }
   }
 }).$mount("#app");

@@ -99,11 +99,9 @@ export default {
           .then(res => {
             const submitUserInfo = {
               ...this.userForm.register,
-              collect: [],
-              kanban: [],
-              post: []
+              uid: res.user.uid
             };
-            this.$database.setUser(res.user.uid, submitUserInfo);
+            this.$database.setUser(submitUserInfo);
           })
           .then(() => {
             this.$message("成功");
