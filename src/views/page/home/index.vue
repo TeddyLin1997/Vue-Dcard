@@ -1,14 +1,16 @@
 <template lang="pug">
-  #home(v-loading="loading")
+#home(v-loading="loading")
     header
-      kanban-tabs(:data="tabList" :fadeOut="true")
+        //- kanban-tabs(:data="tabList" :fadeOut="true")
     body
-      article-item(v-if="haveArticle" :data="articleList")
-      no-data-search(v-else)
+        article-item(v-if="haveArticle" :data="articleList")
+        no-data-search(v-else)
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {
+  mapState
+} from "vuex";
 import kanbanTabs from "@/components/kanban-tabs";
 import articleItem from "@/components/article-item";
 import noDataSearch from "@/components/no-data-search";
