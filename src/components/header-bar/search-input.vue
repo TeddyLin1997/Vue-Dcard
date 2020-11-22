@@ -37,7 +37,7 @@ export default {
           name: "search",
           query: { search: this.searchKey }
         })
-        .catch(() => location.reload());
+        .catch(() => {});
     }
   }
 };
