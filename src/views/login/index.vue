@@ -74,6 +74,13 @@ export default {
   methods: {
     ...mapActions(["setUserInfo"]),
 
+    clearRegisterForm() {
+      this.userForm.register.account = "";
+      this.userForm.register.password = "";
+      this.userForm.register.name = "";
+      this.userForm.register.school = "";
+    },
+
     // 表單送出按鈕
     async submit(code) {
       this.loading = true;
@@ -91,21 +98,21 @@ export default {
       }
       // 註冊
       if (code === "register") {
+        const submitUserInfo = { ...this.userForm.register };
         await this.$auth
           .createUserWithEmailAndPassword(
             this.userForm.register.account,
             this.userForm.register.password
           )
           .then(res => {
-            const submitUserInfo = {
-              ...this.userForm.register,
-              uid: res.user.uid
-            };
-            this.$database.setUser(submitUserInfo);
+            this.$database.setUser({ ...submitUserInfo, uid: res.user.uid });
           })
           .then(() => {
             this.$message("成功");
             this.active = "login";
+            this.clearRegisterForm();
+            this.userForm.login.account = submitUserInfo.account;
+            this.userForm.login.password = submitUserInfo.password;
           })
           .catch(err => this.$message(err.message, "error"));
       }

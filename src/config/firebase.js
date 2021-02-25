@@ -190,7 +190,6 @@ export const database = {
     const target = data.find(item => {
       if (item) return item.name === name;
     });
-    console.log("api", target);
     return target === undefined ? false : true;
   },
 
