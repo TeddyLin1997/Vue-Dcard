@@ -20,8 +20,10 @@ export default {
 
   methods: {
     goHomePage() {
-      if (this.$route.path === "/") return location.reload();
-      this.$router.push({ path: "/" });
+      if (this.$route.name === "home" || this.$route.name === "login") {
+        return location.reload();
+      }
+      this.$router.push({ name: "home" });
     }
   }
 };

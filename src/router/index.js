@@ -12,12 +12,14 @@ const router = new VueRouter({
 
 const checkUser = async (to, from, next) => {
   await router.app.$root;
+  const userInfo = router.app.$root.$store.state.userInfo;
+
+  // 防止無限跳轉
   if (to.name === "login") return next();
-  if (router.app.$root.$store.state.userInfo) return next();
-  else {
-    router.app.$root.$message("請登入帳號，即可使用相關功能", "error");
-    next({ name: "login" });
-  }
+
+  if (userInfo === null) return next({ name: "login" });
+  else if (to.name === null) return next({ name: "home" });
+  else return next({ name: to.name });
 };
 
 router.beforeEach((to, from, next) => {

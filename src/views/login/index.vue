@@ -85,7 +85,7 @@ export default {
             this.userForm.login.password
           )
           .then(() => this.saveUserInfo())
-          .then(() => this.$router.push({ path: "/" }))
+          .then(() => this.$router.push({ name: "home" }))
           .then(() => this.$message("成功"))
           .catch(err => this.$message(err.message, "error"));
       }

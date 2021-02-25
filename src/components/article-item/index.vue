@@ -113,6 +113,10 @@ export default {
 
       this.hasMood = await this.$database.hasMood(value, user.name);
       this.hasCollect = await this.$database.hasCollect(value, user.uid);
+    },
+
+    hasMood(val) {
+      console.log(val);
     }
   },
 
