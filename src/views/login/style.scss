@@ -41,7 +41,6 @@
   @include flex(column, space-between);
   padding: 1rem;
   width: 500px;
-  // height: 350px;
   color: #fff;
   background-color: $skyBlue;
   border-bottom-left-radius: 6px;
@@ -77,4 +76,8 @@
       background-color: $darkBlue;
     }
   }
+}
+
+.test {
+  color: gray;
 }

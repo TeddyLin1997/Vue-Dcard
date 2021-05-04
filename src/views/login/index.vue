@@ -29,6 +29,13 @@
         span 密碼
         input(v-model="userForm[active].password" type="password" placeholder=" 請輸入密碼" @keyup.enter="submit(active)")
       button(@click="submit(active)") 送出
+
+    
+    br
+    .test
+      div 測試帳號
+      div 信箱: test@gmail.com
+      div 密碼: qwe123
 </template>
 
 <script>
